@@ -2,7 +2,6 @@ import cors from "@fastify/cors"
 import fastifyStatic from "@fastify/static"
 import fs from "fs/promises"
 import path from "node:path"
-import { fileURLToPath } from "node:url"
 import zlib from "node:zlib"
 
 //
@@ -19,10 +18,13 @@ const probeDirectory = async (dirList, agr = "local/", testFile = "certificate.c
 };
 
 //
-const __dirname = (await probeDirectory(["../../webapp/index", "../webapp/index", "./webapp/index"], "./", "index.html"));
+const __dirname = (await probeDirectory(["../../webapp/", "../webapp/", "./webapp/", "./"], "./", "index.html"));
+const LOADER = fs.readFile(path.resolve(__dirname, "index.html"), {encoding: 'utf-8'});
 
 //
-export default async function (fastify, options) {
+export default async function (fastify, options = {}) {
+    if (!fastify) throw Error("No Fastify...");
+
     //
     await fastify.register(import("@fastify/compress"), {
         global: true,
@@ -101,27 +103,16 @@ export default async function (fastify, options) {
     });
 
     //
-    fastify.register(fastifyStatic, {
-        prefix: "/assets/",
-        root: path.join(__dirname, "assets/"),
-        decorateReply: false,
-        list: true,
-    });
+    const CODE = await LOADER;
 
     //
-    fastify.register(fastifyStatic, {
-        prefix: `/modules/`,
-        root: path.join(__dirname, `modules/`),
-        decorateReply: false,
-        list: true,
-    });
+    fastify.register(fastifyStatic, { prefix: "/pwa/"   , root: path.resolve(__dirname, "pwa/")   , decorateReply: false, list: true, });
+    fastify.register(fastifyStatic, { prefix: "/index/" , root: path.resolve(__dirname, "index/") , decorateReply: false, list: true, });
+    fastify.register(fastifyStatic, { prefix: "/assets/", root: path.resolve(__dirname, "assets/"), decorateReply: false, list: true, });
 
     //
-    fastify.register(fastifyStatic, {
-        prefix: "/",
-        root: path.join(__dirname, ""),
-        decorateReply: true,
-        list: true,
+    fastify.get('/', options, (request, reply) => {
+        reply?.code(200)?.header?.('Content-Type', 'text/html; charset=utf-8')?.type?.('text/html')?.send?.(CODE)
     });
 }
 
