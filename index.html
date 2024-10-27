@@ -41,7 +41,7 @@
         <script>
             // avoid any dragging when no-needed...
             document.documentElement.addEventListener("dragstart", (ev) => {
-                if ((ev?.target as HTMLElement)?.matches?.("div, img, picture, canvas, video, svg")) {
+                if (ev?.target?.matches?.("div, img, picture, canvas, video, svg")) {
                     ev.preventDefault();
                 }
             }, {passive: false, capture: true});

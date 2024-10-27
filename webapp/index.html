@@ -3,11 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta nativeui="true">
+
         <!---->
         <title>Web App Loader</title>
+
         <!---->
         <meta property="og:locale" content="en">
         <meta http-equiv="content-language" content="en-us">
+
         <!---->
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover, interactive-widget=overlays-content, shrink-to-fit=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,18 +20,22 @@
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF">
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
         -->
+
         <!---->
         <meta name="theme-color" content="currentColor">
         <meta name="theme-color" content="transparent" data-theme-color>
+
         <!---->
         <meta name="browsermode" content="application">
         <meta name="layoutmode" content="fitscreen">
         <meta name="full-screen" content="yes">
+
         <!---->
         <meta name="application-name" content="IDC-LX0">
         <meta name="author" content="intendant, unit-404, community">
         <meta name="designer" content="intendant, unit-404, community, Google">
         <meta name="publisher" content="intendant, unit-404, community, Github">
+
         <!---->
         <meta name="distribution" content="web">
         <meta name="dcterms.audience" content="Global">
@@ -44,16 +51,17 @@
         <!-- webpackIgnore: true-->
         <link rel="manifest" href="./pwa/manifest.json">
         <link rel="icon" type="image/png" href="./favicon.png">
+        <link rel="apple-touch-icon" href="./favicon.png">
 
         <!-- critical styles -->
         <style>
-            
         </style>
-        
+
+        <!-- -->
         <script>
             // avoid any dragging when no-needed...
             document.documentElement.addEventListener("dragstart", (ev) => {
-                if ((ev?.target as HTMLElement)?.matches?.("div, img, picture, canvas, video, svg")) {
+                if (ev?.target?.matches?.("div, img, picture, canvas, video, svg")) {
                     ev.preventDefault();
                 }
             }, {passive: false, capture: true});
@@ -72,10 +80,11 @@
         </script>
     </head>
     <body>
-        <div id="viewport"><div id="root">
+        <div id="background" class="container u2-container"></div>
+        <div id="viewport"   class="container u2-container"><u-scrollbox id="root">
             <!-- Web Application Slot -->
-        </div></div>
-        <div id="overlays"></div>
+        </u-scrollbox></div>
+        <div id="overlays"   class="container u2-container u2-toplayer"></div>
 
         <!-- Web App loader -->
         <script type="module" async defer>
