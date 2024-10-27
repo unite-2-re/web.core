@@ -1,0 +1,53 @@
+{
+    "manifest_version": 3,
+    "name": "web.core",
+    "short_name": "web.core",
+    "version": "canary",
+    "start_url": "/",
+    "author": "unit-404",
+    "id": "/",
+    "scope": "/",
+    "display": "fullscreen",
+    "display_override": [
+        "window-controls-overlay",
+        "borderless",
+        "fullscreen",
+        "standalone"
+    ],
+    "description": "NTP PWA Application.",
+    "theme_color": "#101010",
+    "background_color": "#101010",
+    "orientation": "any",
+    "categories": [
+        "personalization",
+        "education",
+        "entertainment",
+        "lifestyle"
+    ],
+    "permissions": ["window-management", "fullscreen", "theme"],
+    "icons": [
+        {
+            "src": "../assets/icons/home/512c.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "../assets/icons/home/512x.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "related_applications": [
+        { "platform": "play", "id": "*", "url": "*://*/*" },
+        { "platform": "itunes", "id": "*", "url": "*://*/*" },
+        { "platform": "windows", "id": "*", "url": "*://*/*" },
+        { "platform": "chrome_web_store", "id": "*", "url": "*://*/*" },
+        { "platform": "chromeos_play", "id": "*", "url": "*://*/*" },
+        { "platform": "webapp", "id": "*", "url": "*://*/*" },
+        { "platform": "f-droid", "id": "*", "url": "*://*/*" },
+        { "platform": "amazon", "id": "*", "url": "*://*/*" }
+    ],
+    "incognito": "split",
+    "default_locale": "en"
+}

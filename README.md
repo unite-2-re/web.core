@@ -1,2 +1,1 @@
-# web.core
-Normalize SCSS and some utils...
+# theme.core
