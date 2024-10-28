@@ -160,3 +160,7 @@ private/*
 */private/
 */private/*
 
+#
+package-lock.json
+./package-lock.json
+*/package-lock.json
