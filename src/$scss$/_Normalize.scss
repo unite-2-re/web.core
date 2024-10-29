@@ -358,7 +358,7 @@
     }
 
     //
-    :where(canvas):is([is="w-canvas"]) {
+    :where(canvas):is([is="u-canvas"]) {
         & {
             min-inline-size: 1px;
             min-block-size: 1px;
