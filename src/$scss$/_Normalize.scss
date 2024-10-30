@@ -4,9 +4,79 @@
 @layer u2-normalize {
 
     //
+    :where(body) :where(*) {
+        //
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        //
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        -ms-user-drag: none;
+        user-drag: none;
+
+        //
+        box-sizing: border-box;
+        border: none;
+        outline: none;
+        -webkit-box-shadow: none;
+        -webkit-tap-highlight-color: transparent;
+        -moz-tap-highlight-color: transparent;
+        box-shadow: none;
+
+        //
+        touch-action: pan-y pan-x;
+        transition-behavior: allow-discrete;
+
+        //
+        @include ps.disable-transform();
+
+        //
+        &:not(x-scrollbox) {
+            // default effects
+            --translate-x: 0px;
+            --translate-y: 0px;
+            --scale: 1;
+            --opacity: 1;
+
+            //
+            will-change: --translate-x, --translate-y, --scale, --opacity;
+            transform: translate(var(--translate-x), var(--translate-y)) scale(var(--scale, 1));
+
+            // mobile too slow
+            //filter: opacity(var(--opacity, 1));
+            //opacity: 1;
+
+            opacity: var(--opacity, 1);
+        }
+    }
+
+    //
     html::view-transition {
         position: fixed;
         inset: 0;
+    }
+
+    //
+    :root, :where(html) {
+        container-type: size;
+        container-name: html root;
+    }
+
+    //
+    :root, :host, :scope, :where(body) {
+        will-change: --keyboard-inset-bottom, --keyboard-inset-height, inset;
+        pointer-events: auto;
+
+        //
+        --keyboard-inset-bottom: calc(max(env(keyboard-inset-bottom, 0px), 0px) / max(var(--zoom, 1), 0.125));
+        --keyboard-inset-height: calc(max(env(keyboard-inset-height, 0px), 0px) / max(var(--zoom, 1), 0.125));
     }
 
     //
@@ -33,8 +103,8 @@
     //
     :where(head) {
         user-select: none;
-        pointer-events: none;
-        display: none;
+        pointer-events: none !important;
+        display: none !important;
     }
 
     //
@@ -150,8 +220,8 @@
         }
     }
 
-    //
-    :where(.app-container) {
+    // deprecated
+    /*:where(.app-container) {
         //
         grid-template-columns: minmax(0px, 1fr);
         grid-template-rows: minmax(0px, 1fr);
@@ -205,7 +275,7 @@
             grid-column: 1 / 1 span;
             grid-row: 1 / 1 span;
         }
-    }
+    }*/
 
     //
     :where(canvas, img, picture, video) {
@@ -227,60 +297,6 @@
     //
     :dir(ltr) :where(*), :where(*):dir(ltr) {
         direction: ltr;
-    }
-
-    //
-    :where(body) :where(*) {
-        //
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -o-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-
-        //
-        -webkit-user-drag: none;
-        -khtml-user-drag: none;
-        -moz-user-drag: none;
-        -o-user-drag: none;
-        -ms-user-drag: none;
-        user-drag: none;
-
-        //
-        box-sizing: border-box;
-        border: none;
-        outline: none;
-        -webkit-box-shadow: none;
-        -webkit-tap-highlight-color: transparent;
-        -moz-tap-highlight-color: transparent;
-        box-shadow: none;
-
-        //
-        touch-action: pan-y pan-x;
-        transition-behavior: allow-discrete;
-
-        //
-        @include ps.disable-transform();
-
-        //
-        &:not(x-scrollbox) {
-            // default effects
-            --translate-x: 0px;
-            --translate-y: 0px;
-            --scale: 1;
-            --opacity: 1;
-
-            //
-            will-change: --translate-x, --translate-y, --scale, --opacity;
-            transform: translate(var(--translate-x), var(--translate-y)) scale(var(--scale, 1));
-
-            // mobile too slow
-            //filter: opacity(var(--opacity, 1));
-            //opacity: 1;
-
-            opacity: var(--opacity, 1);
-        }
     }
 
     //
@@ -455,10 +471,8 @@
         flex-shrink: 0;
     }
 
-
-
-    //
-    :where(html > div) {
+    // deprecated
+    /*:where(html > div) {
         & { all       : initial; };
         * { all       : unset  ; };
         & { z-index   : 99     ; };
@@ -484,6 +498,6 @@
             inline-size: 0px;
             block-size: 0px;
         }
-    }
+    }*/
 
 };
