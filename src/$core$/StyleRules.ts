@@ -4,6 +4,7 @@ export type StyleTuple = [selector: string, sheet: object];
 //
 const styleElement = document.createElement("style");
 document.querySelector("head")?.appendChild?.(styleElement);
+styleElement.dataset.owner = "core";
 
 //
 export const setStyleRule = (selector: string, sheet: object) => {
@@ -27,8 +28,3 @@ export const setStyleRule = (selector: string, sheet: object) => {
 export const setStyleRules = (classes: StyleTuple[]) => {
     return classes?.map?.((args) => setStyleRule(...args));
 };
-
-
-// extras...
-//import { WavyShapedCircle } from "./StyleUtils.ts";
-//setStyleRule(":where(.wavy-shaped)", WavyShapedCircle())
