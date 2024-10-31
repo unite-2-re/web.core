@@ -4,38 +4,55 @@
 @layer u2-normalize {
 
     //
+    :where(html, body) {
+        //
+        & {
+            padding: 0px;
+            margin: 0px;
+            inset: 0px;
+            border: none 0px transparent;
+            background-color: transparent;
+        }
+
+        //
+        & { @include ps.HQRendering(); };
+    }
+
+    //
     :where(body) :where(*) {
-        //
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -o-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-
-        //
-        -webkit-user-drag: none;
-        -khtml-user-drag: none;
-        -moz-user-drag: none;
-        -o-user-drag: none;
-        -ms-user-drag: none;
-        user-drag: none;
-
-        //
-        box-sizing: border-box;
-        border: none;
-        outline: none;
-        -webkit-box-shadow: none;
-        -webkit-tap-highlight-color: transparent;
-        -moz-tap-highlight-color: transparent;
-        box-shadow: none;
-
-        //
-        touch-action: pan-y pan-x;
-        transition-behavior: allow-discrete;
-
-        //
         @include ps.disable-transform();
+
+        //
+        & {
+            //
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            //
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            -ms-user-drag: none;
+            user-drag: none;
+
+            //
+            box-sizing: border-box;
+            border: none;
+            outline: none;
+            -webkit-box-shadow: none;
+            -webkit-tap-highlight-color: transparent;
+            -moz-tap-highlight-color: transparent;
+            box-shadow: none;
+
+            //
+            touch-action: pan-y pan-x;
+            transition-behavior: allow-discrete;
+        }
 
         //
         &:not(x-scrollbox) {
@@ -58,12 +75,6 @@
     }
 
     //
-    html::view-transition {
-        position: fixed;
-        inset: 0;
-    }
-
-    //
     :root, :where(html) {
         container-type: size;
         container-name: html root;
@@ -80,29 +91,14 @@
     }
 
     //
-    :where(html, body) {
-        //
-        & {
-            padding: 0px;
-            margin: 0px;
-            inset: 0px;
-            border: none 0px transparent;
-            background-color: transparent;
-        }
-
-        //
-        & { @include ps.HQRendering(); };
-    }
-
-    //
     :where(:root, body, html, button) {
         font-family: Calibri, Carlito, Caliburn, Seravek, 'Gill Sans Nova', Ubuntu, 'DejaVu Sans', Candara, Segoe, "Segoe UI", Optima, source-sans-pro, sans-serif;
         //@include dFont.applyFont(0.9rem);
     }
 
     //
-    :where(head) {
-        user-select: none;
+    :where(head, script, style) {
+        user-select: none !important;
         pointer-events: none !important;
         display: none !important;
     }
@@ -126,11 +122,6 @@
         flex-direction: column;
 
         //
-        grid-auto-rows: minmax(0px, 0px);
-        grid-template-columns: minmax(0px, 1fr);
-        grid-template-rows: minmax(0px, 1fr) minmax(0px, 0px);
-
-        //
         min-inline-size: 0px;
         min-block-size: 0px;
 
@@ -146,12 +137,6 @@
         place-content: start;
         place-items: start;
         place-self: start;
-
-        //
-        & > :where(*) {
-            grid-column: 1 / 1 span;
-            grid-row: 1 / 1 span;
-        }
     }
 
     //
@@ -160,6 +145,9 @@
 
         //
         & {
+            $zoom: 1;
+
+            //
             translate: 0px 0px !important;
             transform: none !important;
             margin: 0px !important;
@@ -170,22 +158,17 @@
             //
             overflow: hidden;
             position: relative;
-            pointer-events: auto !important;
-            display: grid;
+            pointer-events: auto;
             inset: 0px;
 
             //
-            //inset-block-end: auto;
-            //inset-inline-end: auto;
-
-            //
+            display: inline flex;
             place-content: center;
             place-items: center;
             place-self: center;
 
             //
             background-color: var(--theme-base-color, transparent);
-            //zoom: var(--scaling, 1);
 
             // if needs viewport
             container-name: body;
@@ -200,82 +183,22 @@
             min-block-size: 0px;
 
             //
-            inline-size: calc(var(--vp-i-size, 100dvi) * 1);
-            block-size: calc(var(--vp-b-size, 100dvb) * 1);
+            inline-size: calc(var(--vp-i-size, 100dvi) * $zoom);
+            block-size: calc(var(--vp-b-size, 100dvb) * $zoom);
 
             //
-            max-inline-size: 100dvi;
-            max-block-size: 100dvb;
-
-            //
-            grid-template-columns: minmax(0px, 1fr);
-            grid-template-rows: minmax(0px, 1fr);
+            max-inline-size: calc(100dvi * $zoom);
+            max-block-size: calc(100dvb * $zoom);
         }
 
         //
         & > :where(*) {
+            display: grid;
             place-self: center;
             grid-column: 1 / 1 span;
             grid-row: 1 / 1 span;
         }
     }
-
-    // deprecated
-    /*:where(.app-container) {
-        //
-        grid-template-columns: minmax(0px, 1fr);
-        grid-template-rows: minmax(0px, 1fr);
-
-        //
-        translate: 0px 0px !important;
-        transform: none !important;
-        margin: 0px !important;
-
-        //
-        display: grid;
-        position: relative !important;
-        inset: 0px;
-
-        //
-        container-name: application !important;
-        container-type: size !important;
-        contain: strict !important;
-
-        //
-        place-content: center;
-        place-items: center;
-        place-self: center;
-
-        //
-        min-inline-size: 0px;
-        min-block-size: 0px;
-
-        //
-        inline-size: 100% !important;
-        block-size: 100% !important;
-
-        //
-        max-inline-size: 100% !important;
-        max-block-size: 100% !important;
-
-        //
-        pointer-events: none;
-
-        //
-        //inset-block-end: auto;
-        //inset-inline-end: auto;
-
-        //
-        //max-inline-size: 100dvi;
-        //max-block-size: 100dvb;
-
-        //
-        & > :where(*) {
-            place-self: center;
-            grid-column: 1 / 1 span;
-            grid-row: 1 / 1 span;
-        }
-    }*/
 
     //
     :where(canvas, img, picture, video) {
@@ -423,12 +346,21 @@
         justify-content: start;
     }
 
-    // PART II.
+    // relative by default
+    :where(label) { position: relative; }
     :where(body) :where(div, label) {
         display: inline flex;
         flex-direction: row;
         flex-wrap: wrap;
         box-sizing: border-box;
+
+        //
+        container-type: normal;
+        contain: none;
+
+        //
+        place-items: center;
+        place-content: center;
 
         //
         min-inline-size: 0px;
@@ -437,14 +369,6 @@
         block-size: max-content;
         max-inline-size: none;
         max-block-size: none;
-
-        //
-        place-items: center;
-        place-content: center;
-
-        //
-        container-type: normal;
-        contain: none;
 
         //
         gap: 0px;
@@ -471,33 +395,15 @@
         flex-shrink: 0;
     }
 
-    // deprecated
-    /*:where(html > div) {
-        & { all       : initial; };
-        * { all       : unset  ; };
-        & { z-index   : 99     ; };
-        & { place-self: start  ; };
-        & { overflow  : visible; }
+    // weird idea...
+    label > input:where([type="radio"], [type="checkbox"]) {
+        display: none;
+        pointer-events: none;
+    }
 
-        // adguard fix
-        & {
-            //
-            display: none !important; // BANNED! Unable to fix...
-            transform: none;
-            place-self: start;
-            place-content: start;
-            place-items: start;
-            text-align: start;
-            inset: 0px;
-            position: fixed;
-            translate: 0px 0px;
-            transform-origin: center;
-            contain: none;
-
-            //
-            inline-size: 0px;
-            block-size: 0px;
-        }
-    }*/
+    // able to select inputs when edit
+    :where(input[type="text"], input[type="number"]) {
+        user-select: auto;
+    }
 
 };
