@@ -134,9 +134,9 @@
         max-block-size: calc(100dvb / max(var(--zoom, 1), 0.125));
 
         //
-        place-content: start;
-        place-items: start;
-        place-self: start;
+        place-content: safe start;
+        place-items: safe start;
+        place-self: safe start;
     }
 
     //
@@ -163,9 +163,9 @@
 
             //
             display: inline flex;
-            place-content: center;
-            place-items: center;
-            place-self: center;
+            place-content: safe center;
+            place-items: safe center;
+            place-self: safe center;
 
             //
             background-color: var(--theme-base-color, transparent);
@@ -194,7 +194,7 @@
         //
         & > :where(*) {
             display: grid;
-            place-self: center;
+            place-self: safe center;
             grid-column: 1 / 1 span;
             grid-row: 1 / 1 span;
         }
@@ -266,8 +266,8 @@
             backdrop-filter: none;
 
             //
-            place-items: center;
-            place-content: center;
+            place-items: safe center;
+            place-content: safe center;
 
             //
             stroke: var(--current-glyph-color);
@@ -314,8 +314,8 @@
     //
 	:where(button) {
         display: flex;
-        place-items: center;
-        place-content: center;
+        place-items: safe center;
+        place-content: safe center;
 
         //
         color: var(--current-glyph-color);
@@ -341,8 +341,8 @@
     :where(a, span) {
         text-decoration: none;
         background-color: transparent;
-        place-content: center;
-        place-items: center;
+        place-content: safe center;
+        place-items: safe center;
         justify-content: start;
     }
 
@@ -359,8 +359,8 @@
         contain: none;
 
         //
-        place-items: center;
-        place-content: center;
+        place-items: safe center;
+        place-content: safe center;
 
         //
         min-inline-size: 0px;
