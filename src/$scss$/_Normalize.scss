@@ -19,6 +19,12 @@
     }
 
     //
+    ::slotted(*) {
+        transition-behavior: allow-discrete;
+        interpolate-size: allow-keywords;
+    }
+
+    //
     :where(body) :where(*) {
         @include ps.disable-transform();
 
@@ -51,7 +57,10 @@
 
             //
             touch-action: pan-y pan-x;
+
+            //
             transition-behavior: allow-discrete;
+            interpolate-size: allow-keywords;
         }
 
         //
@@ -84,6 +93,10 @@
     :root, :host, :scope, :where(body) {
         will-change: --keyboard-inset-bottom, --keyboard-inset-height, inset;
         pointer-events: auto;
+
+        //
+        transition-behavior: allow-discrete;
+        interpolate-size: allow-keywords;
 
         //
         --keyboard-inset-bottom: calc(max(env(keyboard-inset-bottom, 0px), 0px) / max(var(--zoom, 1), 0.125));
