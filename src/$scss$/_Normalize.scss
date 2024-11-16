@@ -244,10 +244,6 @@
             block-size: 100%;
 
             //
-            user-select: none;
-            pointer-events: none;
-
-            //
             display: flex;
             contain: size;
             aspect-ratio: 1 / 1;
@@ -284,6 +280,12 @@
 
             //
             stroke: var(--current-glyph-color);
+
+            //
+            interactivity: inert;
+            pointer-events: none;
+            user-select: none;
+            touch-action: none;
         }
 
         //
@@ -307,6 +309,9 @@
     //
     :where([inert], *[inert]) {
         pointer-events: none !important;
+        interactivity: inert !important;
+        user-select: none !important;
+        touch-action: none !important;
     }
 
     //
