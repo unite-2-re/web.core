@@ -51,7 +51,7 @@ export class StateManager {
 }
 
 //
-const states = new StateManager();
+/**const states = new StateManager();
 
 //
-export default states;
+export default states;*/

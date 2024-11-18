@@ -36,5 +36,10 @@ export class Boot {
 }
 
 //
-const boot = new Boot();
-export default boot;
+let boot: Boot|null = null;
+export const initBoot = (): Boot =>{
+    return (boot ??= new Boot());
+}
+
+//
+export default initBoot;

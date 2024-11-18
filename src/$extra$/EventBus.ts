@@ -33,5 +33,10 @@ export class EventBus {
 };
 
 //
-const eventBus = new EventBus();
-export default eventBus;
+let eventBus: EventBus|null = null;
+export const initEventBus = (): EventBus =>{
+    return (eventBus ??= new EventBus());
+}
+
+//
+export default initEventBus;

@@ -72,27 +72,29 @@ export default class State {
     }
 }
 
-//
-addEventListener("popstate", _ => {
-    const prevState = State.$story.at(State.$story.length - 1) ?? null;
-    State.$story.pop();
-    const state = State.$story.at(State.$story.length - 1) ?? null;
+// deprecated...
+export const initHistory = ()=>{
+    addEventListener("popstate", _ => {
+        const prevState = State.$story.at(State.$story.length - 1) ?? null;
+        State.$story.pop();
+        const state = State.$story.at(State.$story.length - 1) ?? null;
 
-    window.dispatchEvent(
-        new CustomEvent("u2-pop-state", {
-            detail: {
-                prevState,
-                state,
-            },
-        })
-    );
+        window.dispatchEvent(
+            new CustomEvent("u2-pop-state", {
+                detail: {
+                    prevState,
+                    state,
+                },
+            })
+        );
 
-    window.dispatchEvent(
-        new CustomEvent("u2-change-state", {
-            detail: {
-                prevState,
-                state,
-            },
-        })
-    );
-});
+        window.dispatchEvent(
+            new CustomEvent("u2-change-state", {
+                detail: {
+                    prevState,
+                    state,
+                },
+            })
+        );
+    });
+}

@@ -193,32 +193,34 @@ export class TaskManager {
 }
 
 //
-const Manager = new TaskManager();
-export default Manager;
-
-//
-history.pushState(null, "", location.hash = location.hash || "#");
-addEventListener("popstate", (ev)=>{
-    ev.preventDefault();
-    ev.stopPropagation();
-    //ev.stopImmediatePropagation();
+let taskManager: TaskManager|null = null;
+export const initTaskManager = (): TaskManager =>{
+    const wasInit = taskManager == null;
+    const Manager = (taskManager ??= new TaskManager());
 
     //
-    if (window.dispatchEvent(new CustomEvent("ui-back", {
-        bubbles: true,
-        cancelable: true,
-        detail: ev,
-    }))) {
-        //
-        const focus = Manager.getOnFocus();
-        if (focus?.id) { history.go(1); Manager.deactivate(focus.id); }
-        if (!focus || !location.hash || location.hash == "#") { close(); }
-    }
-});
+    if (wasInit) {
+        history.pushState(null, "", location.hash = location.hash || "#");
+        addEventListener("popstate", (ev)=>{
+            ev.preventDefault();
+            ev.stopPropagation();
 
-// from project
-/*import("@idc/Core/Event.ts").then((m)=>{
-    m?.default?.fire?.("task-manager-loaded", {
-        taskManager: Manager
-    });
-});*/
+            //
+            if (window.dispatchEvent(new CustomEvent("ui-back", {
+                bubbles: true,
+                cancelable: true,
+                detail: ev,
+            }))) {
+                const focus = Manager.getOnFocus();
+                if (focus?.id) { history.go(1); Manager.deactivate(focus.id); }
+                if (!focus || !location.hash || location.hash == "#") { close(); }
+            }
+        });
+    }
+
+    //
+    return Manager;
+}
+
+//
+export default initTaskManager;
