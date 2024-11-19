@@ -36,5 +36,5 @@ export const whenAnyScreenChanges = (cb)=>{
     document.documentElement.addEventListener("fullscreenchange", cb);
 
     //
-    requestAnimationFrame(cb);
+    requestIdleCallback(cb, {timeout: 1000});
 }

@@ -271,7 +271,7 @@ const initialize = ()=>{
     }
 
     //
-    requestAnimationFrame(viewportHandler);
+    requestIdleCallback(viewportHandler, {timeout: 1000});
     whenAnyScreenChanges((e?: any) => {
         updateOrientation(e);
         setStyleRules(classes);
