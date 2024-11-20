@@ -162,6 +162,8 @@ export class TaskManager {
     addTask(task, doFocus = true) {
         const index = this.tasks.findIndex((t)=>(t == task || t?.id == task.id));
         const last = this.tasks.length;
+
+        //
         if (index < 0) {
             task.order = last;
             this.tasks.push(task);
@@ -174,9 +176,11 @@ export class TaskManager {
         }
 
         //
-        if (doFocus) {
-            this.focus(location.hash);
+        if (doFocus || location?.hash?.trim?.() == task?.id?.trim?.()) {
+            this.focus(task?.id);
         }
+
+        //
         return this;
     }
 
