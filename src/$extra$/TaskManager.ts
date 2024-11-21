@@ -97,13 +97,13 @@ export class TaskManager {
         }
 
         //
-        if (location.hash != taskId)
+        if (location?.hash?.trim?.() != taskId?.trim?.() && taskId)
             {
                 const oldHash = location.hash;
-                history.replaceState(null, "", taskId);
+                history.replaceState(null, "", taskId || oldHash);
                 window.dispatchEvent(new HashChangeEvent("hashchange", {
                     oldURL: oldHash,
-                    newURL: taskId
+                    newURL: taskId || oldHash
                 }));
             };
 
@@ -123,7 +123,7 @@ export class TaskManager {
         }
 
         //
-        if (location.hash == taskId)
+        if (location?.hash?.trim?.() == taskId?.trim?.() && taskId)
             {
                 const oldHash = location.hash;
                 history.replaceState(null, "", "#");
