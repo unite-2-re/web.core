@@ -178,14 +178,14 @@ export const viewportHandler = (event?: any) => {
     //
     document.documentElement.style.setProperty(
         "--visual-width",
-        (viewport?.width || 0) + "px",
+        (viewport?.width || 1) + "px",
         ""
     );
 
     //
-    const vvh = viewport?.height;
-    const dff = vvh - (layoutViewport.getBoundingClientRect().height || window.innerHeight);
-    const cvh = Math.min(Math.max(vvh - dff, viewport?.offsetTop || 0) - (viewport?.offsetTop || 0), (screen.availHeight || screen.height));
+    const vvh = viewport?.height || 1;
+    const dff = vvh - (layoutViewport.getBoundingClientRect().height || window.innerHeight || 1);
+    const cvh = Math.min(Math.max(vvh - dff, viewport?.offsetTop || 0) - (viewport?.offsetTop || 0), (screen.availHeight || screen.height || 1));
     document.documentElement.style.setProperty(
         "--visual-height",
         cvh + "px",
@@ -210,17 +210,21 @@ const setStyleURL = (base: [any, any], url: string)=>{
 }
 
 //
-const hash = async (string) => {
-    const utf8 = new TextEncoder().encode(string);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', utf8);
+const hash = async (string: string) => {
+    const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(string));
     return "sha256-" + btoa(String.fromCharCode.apply(null, new Uint8Array(hashBuffer) as unknown as number[]));
 }
 
 //
-const loadStyleSheet = async (inline: string, base?: [any, any])=>{
+const loadStyleSheet = async (inline: string, base?: [any, any], integrity?: string|Promise<string>)=>{
     const url = URL.canParse(inline) ? inline : URL.createObjectURL(new Blob([inline], {type: "text/css"}));
-    if (base?.[0] && !URL.canParse(inline) && base?.[0] instanceof HTMLLinkElement) {
-        base[0].setAttribute("integrity", await hash(inline));
+    if (base?.[0] && (!URL.canParse(inline) || integrity) && base?.[0] instanceof HTMLLinkElement) {
+        const I: any = (integrity ?? hash(inline));
+        if (typeof I?.then == "function") {
+            I?.then?.((H)=>base?.[0]?.setAttribute?.("integrity", H));
+        } else {
+            base?.[0]?.setAttribute?.("integrity", I as string);
+        }
     }
     if (base) setStyleURL(base, url);
 }
@@ -256,8 +260,6 @@ const initialize = ()=>{
     //
     window?.visualViewport?.addEventListener?.("scroll", viewportHandler);
     window?.visualViewport?.addEventListener?.("resize", viewportHandler);
-
-    //
     document.documentElement.addEventListener("fullscreenchange", viewportHandler);
 
     //
