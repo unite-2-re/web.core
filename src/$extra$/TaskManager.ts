@@ -2,6 +2,13 @@
 type FX = ((a: any)=>any);
 
 //
+const replaceState = (hash = "")=>{
+    if (location.hash != hash) {
+        history.replaceState(null, "", location.hash = hash);
+    }
+}
+
+//
 export class TaskManager {
     #tasks: any[] = [];
     #events = new Map<string, FX[]>([]);
@@ -100,7 +107,7 @@ export class TaskManager {
         if (location?.hash?.trim?.() != taskId?.trim?.() && taskId)
             {
                 const oldHash = location.hash;
-                history.replaceState(null, "", location.hash = taskId || oldHash);
+                replaceState(taskId || oldHash);
                 window.dispatchEvent(new HashChangeEvent("hashchange", {
                     oldURL: oldHash,
                     newURL: taskId || oldHash
@@ -126,7 +133,7 @@ export class TaskManager {
         if (location?.hash?.trim?.() == taskId?.trim?.() && taskId)
             {
                 const oldHash = location.hash;
-                history.replaceState(null, "", location.hash = this.getOnFocus()?.id || "");
+                replaceState(this.getOnFocus()?.id || "");
                 window.dispatchEvent(new HashChangeEvent("hashchange", {
                     oldURL: oldHash,
                     newURL: "#"
@@ -204,7 +211,7 @@ export const initTaskManager = (): TaskManager =>{
 
     //
     if (wasInit) {
-        history.pushState(null, "", location.hash = location.hash || "#");
+        replaceState(location.hash || "#");
         addEventListener("popstate", (ev)=>{
             ev.preventDefault();
             ev.stopPropagation();
