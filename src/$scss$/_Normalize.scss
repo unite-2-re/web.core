@@ -160,6 +160,12 @@
     :host, :scope, :root {
 
         //
+        :where(button, input, form) {
+            border: none;
+            outline: none;
+        }
+
+        //
         :where(*) {
             @include ps.disable-transform();
 
@@ -181,13 +187,11 @@
                 user-drag: none;
 
                 //
-                box-sizing: border-box;
-                border: none;
-                outline: none;
-                -webkit-box-shadow: none;
+                //-webkit-box-shadow: none;
                 -webkit-tap-highlight-color: transparent;
                 -moz-tap-highlight-color: transparent;
-                box-shadow: none;
+                //box-shadow: none;
+                box-sizing: border-box;
 
                 //
                 touch-action: pan-y pan-x;
@@ -374,7 +378,7 @@
             gap: 0px;
             padding: 0px;
             margin: 0px;
-            border: none 0px transparent;
+            //border: none 0px transparent;
 
             //
             inset: 0px;
