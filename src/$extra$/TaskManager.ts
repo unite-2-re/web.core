@@ -100,7 +100,7 @@ export class TaskManager {
         if (location?.hash?.trim?.() != taskId?.trim?.() && taskId)
             {
                 const oldHash = location.hash;
-                history.replaceState(null, "", taskId || oldHash);
+                history.replaceState(null, "", location.hash = taskId || oldHash);
                 window.dispatchEvent(new HashChangeEvent("hashchange", {
                     oldURL: oldHash,
                     newURL: taskId || oldHash
@@ -126,7 +126,7 @@ export class TaskManager {
         if (location?.hash?.trim?.() == taskId?.trim?.() && taskId)
             {
                 const oldHash = location.hash;
-                history.replaceState(null, "", "#");
+                history.replaceState(null, "", location.hash = this.getOnFocus()?.id || "");
                 window.dispatchEvent(new HashChangeEvent("hashchange", {
                     oldURL: oldHash,
                     newURL: "#"
