@@ -206,7 +206,7 @@
                 --opacity: 1;
 
                 //
-                will-change: --translate-x, --translate-y, --scale, --opacity;
+                //will-change: --translate-x, --translate-y, --scale, --opacity;
                 transform: translate(var(--translate-x), var(--translate-y)) scale(var(--scale, 1));
 
                 // mobile too slow
