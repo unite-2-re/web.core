@@ -149,14 +149,35 @@
 
 
 
+
+//
+@mixin HQRendering($importance: null) {
+    -webkit-font-smoothing: subpixel-antialiased #{$importance};
+    -moz-osx-font-smoothing: auto #{$importance};
+    text-rendering: optimizeLegibility #{$importance};
+    text-rendering: geometricPrecision #{$importance};
+    font-smooth: auto #{$importance};
+}
+
+//
+@mixin LQRendering($importance: null) {
+    -webkit-font-smoothing: none #{$importance};
+    -moz-osx-font-smoothing: grayscale #{$importance};
+    text-rendering: optimizeSpeed #{$importance};
+    font-smooth: 0px #{$importance};
+    font-smooth: never #{$importance};
+}
+
 //
 @mixin hw-optimize() {
+    @include LQRendering();
+
     //
-    -webkit-font-smoothing: subpixel-antialiased;
-    -moz-osx-font-smoothing: auto;
-    text-rendering: optimizeLegibility;
-    text-rendering: geometricPrecision;
-    font-smooth: always;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
+    font-smooth: 0px;
+    font-smooth: never;
 
     //
     //-webkit-perspective: 1000px;
@@ -192,23 +213,6 @@
     -moz-transition: none;
     -o-transition: none;
     transition: none;
-}
-
-//
-@mixin HQRendering($importance: null) {
-    -webkit-font-smoothing: subpixel-antialiased #{$importance};
-    -moz-osx-font-smoothing: auto #{$importance};
-    text-rendering: optimizeLegibility #{$importance};
-    text-rendering: geometricPrecision #{$importance};
-    font-smooth: auto #{$importance};
-}
-
-@mixin LQRendering($importance: null) {
-    -webkit-font-smoothing: none #{$importance};
-    -moz-osx-font-smoothing: grayscale#{$importance};
-    text-rendering: optimizeSpeed #{$importance};
-    font-smooth: 0px #{$importance};
-    font-smooth: never #{$importance};
 }
 
 //

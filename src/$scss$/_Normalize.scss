@@ -32,7 +32,7 @@
 
     //
     :root, :host, :scope, :where(body) {
-        will-change: --keyboard-inset-bottom, --keyboard-inset-height, inset;
+        //will-change: --keyboard-inset-bottom, --keyboard-inset-height, inset;
         pointer-events: auto;
 
         //
@@ -140,7 +140,7 @@
             contain: content;
 
             //
-            will-change: --keyboard-inset-bottom, --keyboard-inset-height, inset;
+            //will-change: --keyboard-inset-bottom, --keyboard-inset-height, inset;
 
             //
             min-inline-size: 1px;
@@ -290,6 +290,11 @@
 
             //
             & { @include ps.HQRendering(); };
+        }
+
+        //
+        :where(ui-icon) {
+            @include ps.HQRendering();
         }
 
         //
