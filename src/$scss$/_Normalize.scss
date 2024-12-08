@@ -278,23 +278,14 @@
                 touch-action: none;
             }
 
-            & { //
-                image-rendering: auto;
-                image-rendering: optimizeQuality;
-                image-rendering: smooth;
-                image-rendering: high-quality;
-
-                //
-                shape-rendering: geometricPrecision;
-            }
-
             //
-            & { @include ps.HQRendering(); };
+            //& { @include ps.HQRendering(); };
+            & { @include ps.LQRendering(); };
         }
 
         //
         :where(ui-icon) {
-            @include ps.HQRendering();
+            @include ps.LQRendering();
         }
 
         //
