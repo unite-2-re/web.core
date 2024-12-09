@@ -51,13 +51,6 @@
     }
 
     //
-    :where(head, script, style) {
-        user-select: none !important;
-        pointer-events: none !important;
-        display: none !important;
-    }
-
-    //
     :where(html) {
         translate: 0px 0px !important;
         transform: none !important;
@@ -408,4 +401,10 @@
 
     }
 
+    //
+    :where(head, script, style, link, meta) {
+        user-select: none !important;
+        pointer-events: none !important;
+        display: none !important;
+    }
 };
