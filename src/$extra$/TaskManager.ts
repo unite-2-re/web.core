@@ -1,10 +1,37 @@
 //
 type FX = ((a: any)=>any);
 
+// prevent behaviour once...
+let pendingChange = "";
+addEventListener("popstate", (ev)=>{
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    //
+    if (pendingChange) {
+        ev.stopImmediatePropagation();
+    }
+
+    //
+    if (taskManager && !pendingChange) {
+        const id = taskManager.getOnFocus()?.id || "#";
+        if (id && id != "#") {
+            taskManager.deactivate(id, false);
+        } else {
+            if (history.length > 1) { history.go(-history.length+1); };
+            close?.();
+        }
+    }
+
+    //
+    pendingChange = "";
+});
+
 //
 const replaceState = (hash = "")=>{
     if (location.hash != hash) {
-        history.replaceState(null, "", location.hash = hash);
+        pendingChange = hash;
+        history.replaceState(null, "", location.hash = hash || "#");
     }
 }
 
@@ -19,16 +46,12 @@ export class TaskManager {
         this.#events = new Map<string, FX[]>([]);
 
         //
-        const hist = (_) => {
+        addEventListener("hashchange", (ev)=>{
             this.focus(location.hash);
-        };
+        });
 
         //
-        addEventListener("hashchange", hist);
-        addEventListener("popstate", hist);
-
-        //
-        this.focus(location.hash);
+        history?.pushState?.(null, "", location.hash = location.hash || "#");
     }
 
     //
@@ -72,8 +95,8 @@ export class TaskManager {
     }
 
     //
-    getOnFocus() {
-        return this.#tasks.findLast((t)=>t.active);
+    getOnFocus(includeHash = true) {
+        return this.#tasks.findLast((t)=>t.active) || (includeHash ? this.get(location.hash) : "#");
     }
 
     //
@@ -96,22 +119,20 @@ export class TaskManager {
 
         //
         const index = this.tasks.findIndex((t)=>t.id == taskId);
+        const task  = this.tasks[index];
         if (index >= 0 && index < (this.tasks.length-1)) {
-            const task = this.tasks[index];
             this.tasks.splice(index, 1);
             this.tasks.push(task);
-            this.trigger("focus", {task, self: this, oldIndex: index, index: (this.tasks.length-1)});
         }
+
+        //
+        if (index >= 0) { this.trigger("focus", {task, self: this, oldIndex: index, index: (this.tasks.length-1)}); };
 
         //
         if (location?.hash?.trim?.() != taskId?.trim?.() && taskId)
             {
                 const oldHash = location.hash;
                 replaceState(taskId || oldHash);
-                window.dispatchEvent(new HashChangeEvent("hashchange", {
-                    oldURL: oldHash,
-                    newURL: taskId || oldHash
-                }));
             };
 
         //
@@ -119,25 +140,19 @@ export class TaskManager {
     }
 
     //
-    deactivate(taskId: string) {
+    deactivate(taskId: string, trigger = true) {
         const index = this.tasks.findIndex((t)=>t.id == taskId);
         if (index >= 0) {
             const task = this.tasks[index];
-            if (task?.active) {
-                task.active = false;
-                this.trigger("deactivate", {task, self: this, index});
-            }
+            if (task?.active) { task.active = false; };
+            this.trigger("deactivate", {task, self: this, index});
         }
 
         //
         if (location?.hash?.trim?.() == taskId?.trim?.() && taskId)
             {
-                const oldHash = location.hash;
-                replaceState(this.getOnFocus()?.id || "");
-                window.dispatchEvent(new HashChangeEvent("hashchange", {
-                    oldURL: oldHash,
-                    newURL: "#"
-                }));
+                const newHash = this.getOnFocus(false)?.id || "#";
+                if (trigger) { replaceState(newHash); }
             };
 
         //
@@ -206,30 +221,8 @@ export class TaskManager {
 //
 let taskManager: TaskManager|null = null;
 export const initTaskManager = (): TaskManager =>{
-    const wasInit = taskManager == null;
+    //const wasInit = taskManager == null;
     const Manager = (taskManager ??= new TaskManager());
-
-    //
-    if (wasInit) {
-        replaceState(location.hash || "#");
-        addEventListener("popstate", (ev)=>{
-            ev.preventDefault();
-            ev.stopPropagation();
-
-            //
-            if (window.dispatchEvent(new CustomEvent("ui-back", {
-                bubbles: true,
-                cancelable: true,
-                detail: ev,
-            }))) {
-                const focus = Manager.getOnFocus();
-                if (focus?.id) { history.go(1); Manager.deactivate(focus.id); }
-                if (!focus || !location.hash || location.hash == "#") { close(); }
-            }
-        });
-    }
-
-    //
     return Manager;
 }
 
