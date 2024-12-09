@@ -18,7 +18,7 @@ addEventListener("popstate", (ev)=>{
         if (id && id != "#") {
             taskManager.deactivate(id, false);
         } else {
-            if (history.length > 1) { history.go(-history.length+1); };
+            if (history.length >= 1) { history.go(-history.length); };
             location.hash = "#"; close?.();
         }
     }
