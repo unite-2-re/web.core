@@ -1,38 +1,12 @@
 //
 type FX = ((a: any)=>any);
 
-// prevent behaviour once...
-let pendingChange = "";
-addEventListener("popstate", (ev)=>{
-    ev.preventDefault();
-    ev.stopPropagation();
-
-    //
-    if (pendingChange) {
-        ev.stopImmediatePropagation();
-    }
-
-    //
-    if (taskManager && !pendingChange) {
-        const id = taskManager.getOnFocus()?.id || "#";
-        if (id && id != "#") {
-            taskManager.deactivate(id, false);
-        } else {
-            if (history.length >= 1) { history.go(-history.length); };
-            location.hash = "#"; close?.();
-        }
-    }
-
-    //
-    pendingChange = "";
-});
-
 //
 const replaceState = (hash = "")=>{
-    if (location.hash != hash) {
+    /*if (location.hash != hash) {
         pendingChange = hash;
         history.replaceState(null, "", location.hash = hash || "#");
-    }
+    }*/
 }
 
 //
@@ -52,6 +26,25 @@ export class TaskManager {
 
         //
         history?.pushState?.(null, "", location.hash = location.hash || "#");
+
+        // prevent behaviour once...
+        addEventListener("popstate", (ev)=>{
+            ev.preventDefault();
+            ev.stopPropagation();
+            ev.stopImmediatePropagation();
+
+            //
+            if (taskManager) {
+                const id = taskManager.getOnFocus()?.id || "#";
+                if (id && id != "#") {
+                    history?.forward?.();
+                    taskManager.deactivate(id, false);
+                } /*else {
+                    if (history.length >= 1) { history.go(-history.length); };
+                    close?.();
+                }*/
+            }
+        });
     }
 
     //
