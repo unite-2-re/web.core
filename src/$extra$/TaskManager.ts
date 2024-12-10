@@ -35,7 +35,7 @@ export class TaskManager {
 
             //
             if (taskManager) {
-                const id = taskManager.getOnFocus()?.id || "#";
+                const id = taskManager.getOnFocus(false)?.id || "#";
                 if (id && id != "#") {
                     history?.forward?.();
                     taskManager.deactivate(id, false);
