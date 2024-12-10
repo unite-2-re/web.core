@@ -25,8 +25,10 @@ export class TaskManager {
         });
 
         //
-        history?.pushState?.(null, "", location.hash = location.hash || "#");
+        history?.pushState?.("", "", location.hash = location.hash || "#");
 
+        //
+        let ignoreForward = false;
         // prevent behaviour once...
         addEventListener("popstate", (ev)=>{
             ev.preventDefault();
@@ -34,15 +36,16 @@ export class TaskManager {
             ev.stopImmediatePropagation();
 
             //
-            if (taskManager) {
+            if (ignoreForward) {
+                ignoreForward = false;
+            } else
+            if (taskManager && !ignoreForward) {
                 const id = taskManager.getOnFocus(false)?.id || "#";
                 if (id && id != "#") {
-                    //history?.forward?.();
+                    ignoreForward = true;
+                    history?.forward?.();
                     taskManager.deactivate(id, false);
-                } /*else {
-                    if (history.length >= 1) { history.go(-history.length); };
-                    close?.();
-                }*/
+                }
             }
         });
     }
