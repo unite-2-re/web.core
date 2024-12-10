@@ -25,7 +25,9 @@ export class TaskManager {
         });
 
         //
-        history?.pushState?.("", "", location.hash = location.hash || "#");
+        if (history?.length <= 1) {
+            history?.pushState?.("", "", location.hash = location.hash || "#");
+        }
 
         //
         let ignoreForward = false;
@@ -130,6 +132,11 @@ export class TaskManager {
                 const oldHash = location.hash;
                 replaceState(taskId || oldHash);
             };
+
+        // may breaking...
+        if (history?.length <= 1 && taskId) {
+            history?.pushState?.("", "", location.hash = location.hash || "#");
+        }
 
         //
         return this;
