@@ -4,6 +4,9 @@
 @layer u2-normalize {
 
     //
+    @layer ux-agate;
+
+    //
     :where(html, body) {
         //
         & {
@@ -32,7 +35,6 @@
 
     //
     :root, :host, :scope, :where(body) {
-        //will-change: --keyboard-inset-bottom, --keyboard-inset-height, inset;
         pointer-events: auto;
 
         //
@@ -81,27 +83,13 @@
         max-block-size: calc(100dvb / max(var(--zoom, 1), 0.125));
 
         //
-        place-content: safe start;
-        place-items: safe start;
-        place-self: safe start;
+        place-content: start;
+        place-items: start;
+        place-self: start;
     }
 
     //
     :where(body) {
-        @include ps.vp-vars();
-
-        //
-        & {
-            $zoom: 1;
-
-            //
-            inline-size: calc(var(--vp-i-size, 100dvi) * $zoom);
-            block-size: calc(var(--vp-b-size, 100dvb) * $zoom);
-
-            //
-            max-inline-size: calc(100dvi * $zoom);
-            max-block-size: calc(100dvb * $zoom);
-        }
 
         //
         & {
@@ -131,9 +119,6 @@
             container-name: body;
             container-type: size;
             contain: content;
-
-            //
-            //will-change: --keyboard-inset-bottom, --keyboard-inset-height, inset;
 
             //
             min-inline-size: 1px;
@@ -199,13 +184,7 @@
                 --opacity: 1;
 
                 //
-                //will-change: --translate-x, --translate-y, --scale, --opacity;
                 transform: translate(var(--translate-x), var(--translate-y)) scale(var(--scale, 1));
-
-                // mobile too slow
-                //filter: opacity(var(--opacity, 1));
-                //opacity: 1;
-
                 opacity: var(--opacity, 1);
             }
         }
@@ -284,7 +263,6 @@
         //
         :where([inert], *[inert]) {
             pointer-events: none !important;
-            //interactivity: inert !important;
             user-select: none !important;
             touch-action: none !important;
         }
@@ -307,8 +285,8 @@
         //
         :where(button) {
             display: flex;
-            place-items: safe center;
-            place-content: safe center;
+            place-items: center;
+            place-content: center;
 
             //
             color: var(--current-glyph-color);
@@ -334,8 +312,8 @@
         :where(a, span) {
             text-decoration: none;
             background-color: transparent;
-            place-content: safe center;
-            place-items: safe center;
+            place-content: center;
+            place-items: center;
             justify-content: start;
         }
 
@@ -352,8 +330,8 @@
             contain: none;
 
             //
-            place-items: safe center;
-            place-content: safe center;
+            place-items: center;
+            place-content: center;
 
             //
             min-inline-size: 0px;
@@ -367,12 +345,9 @@
             gap: 0px;
             padding: 0px;
             margin: 0px;
-            //border: none 0px transparent;
 
             //
-            inset: 0px;
-            inset-inline-end: auto;
-            inset-block-end: auto;
+            inset: var(--cs-inset-y, 0px) auto auto var(--cs-inset-x, 0px);
         }
 
         //
@@ -403,8 +378,8 @@
 
     //
     :where(head, script, style, link, meta) {
+        display: none !important;
         user-select: none !important;
         pointer-events: none !important;
-        display: none !important;
     }
 };
