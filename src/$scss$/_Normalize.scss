@@ -184,7 +184,7 @@
                 --opacity: 1;
 
                 //
-                transform: translate(var(--translate-x), var(--translate-y)) scale(var(--scale, 1));
+                transform: translate(var(--translate-x, 0px), var(--translate-y, 0px)) scale(var(--scale, 1));
                 opacity: var(--opacity, 1);
             }
         }

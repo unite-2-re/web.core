@@ -37,9 +37,15 @@ export class TaskManager {
             ev.stopPropagation();
             ev.stopImmediatePropagation();
 
-            //
+            // hide taskbar before back
+            const taskbar = document.querySelector("ui-taskbar:not([data-hidden])") as HTMLElement;
             if (ignoreForward) {
                 ignoreForward = false;
+            } else
+            if (matchMedia("not (((hover: hover) or (pointer: fine)) and ((width >= 9in) or (orientation: landscape)))").matches && taskbar && !ignoreForward) {
+                ignoreForward = true;
+                history?.forward?.();
+                taskbar.dataset.hidden = "";
             } else
             if (taskManager && !ignoreForward) {
                 const id = taskManager.getOnFocus(false)?.id || "#";
