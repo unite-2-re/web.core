@@ -29,8 +29,44 @@
 
     //
     :root, :where(html) {
-        container-type: size;
+        translate: 0px 0px !important;
+        transform: none !important;
+        margin: 0px !important;
+        padding: 0px !important;
+        border: none 0px transparent !important;
+        outline: none 0px transparent !important;
+
+        //
+        background-color: transparent;
+        container-type: normal;
         container-name: html root;
+        contain: none;
+        overflow: visible;
+        position: fixed;
+        inset: 0px;
+        inset-block-end: auto;
+
+        //
+        min-inline-size: 100dvi;
+        min-block-size: 100dvb;
+
+        //
+        inline-size: max-content;
+        block-size: max-content;
+
+        //
+        max-inline-size: max-content;
+        max-block-size: max-content;
+
+        //
+        place-content: start;
+        place-items: start;
+        place-self: start;
+
+        //
+        line-height: 0;
+        flex-direction: column;
+        display: flex;
     }
 
     //
@@ -50,42 +86,6 @@
     :where(:root, body, html, button) {
         font-family: Calibri, Carlito, Caliburn, Seravek, 'Gill Sans Nova', Ubuntu, 'DejaVu Sans', Candara, Segoe, "Segoe UI", Optima, source-sans-pro, sans-serif;
         //@include dFont.applyFont(0.9rem);
-    }
-
-    //
-    :where(html) {
-        translate: 0px 0px !important;
-        transform: none !important;
-        margin: 0px !important;
-        inset: 0px !important;
-
-        //
-        background-color: transparent;
-
-        //
-        overflow: visible;
-        position: relative;
-        display: contents;
-        line-height: 0;
-        contain: none;
-        flex-direction: column;
-
-        //
-        min-inline-size: 0px;
-        min-block-size: 0px;
-
-        //
-        inline-size: initial;
-        block-size: initial;
-
-        //
-        max-inline-size: initial;
-        max-block-size: initial;
-
-        //
-        place-content: start;
-        place-items: start;
-        place-self: start;
     }
 
     //
