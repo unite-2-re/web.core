@@ -101,7 +101,7 @@
             font-size: 0.9rem;
 
             //
-            overflow: hidden;
+            overflow: visible;
             position: relative;
             pointer-events: auto;
             inset: 0px;
@@ -117,8 +117,8 @@
 
             // if needs viewport
             container-name: body;
-            container-type: size;
-            contain: content;
+            container-type: normal;
+            contain: none;
 
             //
             min-inline-size: 1px;
