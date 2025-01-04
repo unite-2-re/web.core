@@ -75,12 +75,12 @@
         min-block-size: 0px;
 
         //
-        inline-size: calc(100dvi / max(var(--zoom, 1), 0.125));
-        block-size: calc(100dvb / max(var(--zoom, 1), 0.125));
+        inline-size: initial;
+        block-size: initial;
 
         //
-        max-inline-size: calc(100dvi / max(var(--zoom, 1), 0.125));
-        max-block-size: calc(100dvb / max(var(--zoom, 1), 0.125));
+        max-inline-size: initial;
+        max-block-size: initial;
 
         //
         place-content: start;
@@ -108,9 +108,9 @@
 
             //
             display: inline flex;
-            place-content: safe center;
-            place-items: safe center;
-            place-self: safe center;
+            place-content: start;
+            place-items: start;
+            place-self: start;
 
             //
             background-color: var(--theme-base-color, transparent);
