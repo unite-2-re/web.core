@@ -38,7 +38,7 @@ export class TaskManager {
             ev.stopImmediatePropagation();
 
             // hide taskbar before back
-            const taskbar = document.querySelector("ui-taskbar:not([data-hidden])") as HTMLElement;
+            const taskbar = document.querySelector("ui-modal:not([data-hidden]), ui-taskbar:not([data-hidden])") as HTMLElement;
             if (ignoreForward) {
                 ignoreForward = false;
             } else
