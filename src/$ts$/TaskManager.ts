@@ -53,6 +53,9 @@ export class TaskManager {
                     ignoreForward = true;
                     history?.forward?.();
                     taskManager.deactivate(id, false);
+                    if (id?.replace?.("#","")?.startsWith("TASK-")) {
+                        taskManager.removeTask(id);
+                    }
                 }
             }
         });
