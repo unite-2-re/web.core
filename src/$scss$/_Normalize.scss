@@ -55,8 +55,8 @@
         block-size: max-content;
 
         //
-        max-inline-size: max-content;
-        max-block-size: max-content;
+        max-inline-size: none;
+        max-block-size: none;
 
         //
         place-content: start;
@@ -121,8 +121,12 @@
             contain: none;
 
             //
-            min-inline-size: 1px;
-            min-block-size: 1px;
+            min-inline-size: 100dvi;
+            min-block-size: 100dvb;
+
+            //
+            inline-size: 100%;
+            block-size: 100%;
         }
 
         //
