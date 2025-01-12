@@ -228,7 +228,6 @@
                 //
                 container-type: normal;
                 contain: none;
-                will-change: auto;
 
                 //
                 transform: none;
@@ -261,7 +260,7 @@
         }
 
         //
-        :where(ui-icon) {
+        :where(ui-icon, label, form) {
             @include ps.LQRendering();
         }
 
@@ -387,4 +386,11 @@
         user-select: none !important;
         pointer-events: none !important;
     }
+
+    //
+    [data-hidden] *, :host([data-hidden]) *, :host([data-hidden])::slotted(*) {
+        display: none !important;
+        pointer-events: none !important;
+    }
+
 };
