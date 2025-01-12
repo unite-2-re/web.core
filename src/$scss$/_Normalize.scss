@@ -143,6 +143,23 @@
     :host, :scope, :root {
 
         //
+        :where(*) {
+            touch-action: none;
+
+            //
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            //
+            -webkit-tap-highlight-color: transparent;
+            -moz-tap-highlight-color: transparent;
+        }
+
+        //
         :where(button, input, form) {
             border: none;
             outline: none;
@@ -150,6 +167,7 @@
 
         //
         :where(img, picture, span, a, button, input, svg, video, canvas) {
+            touch-action: none;
             -webkit-user-drag: none;
             -khtml-user-drag: none;
             -moz-user-drag: none;
@@ -161,24 +179,6 @@
         //
         :where(img, picture, span, a,  div, label, input, svg, video, canvas) {
             @include ps.disable-transform();
-
-            //
-            & {
-                -webkit-user-select: none;
-                -khtml-user-select: none;
-                -moz-user-select: none;
-                -o-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-
-                //
-                //-webkit-box-shadow: none;
-                -webkit-tap-highlight-color: transparent;
-                -moz-tap-highlight-color: transparent;
-
-                //
-                touch-action: pan-y pan-x;
-            }
 
             //
             &:not(ui-scrollbox) {
