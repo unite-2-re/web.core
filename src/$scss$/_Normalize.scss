@@ -25,6 +25,7 @@
     :where(*), ::slotted(*) {
         transition-behavior: allow-discrete;
         interpolate-size: allow-keywords;
+        box-sizing: border-box;
     }
 
     //
@@ -148,7 +149,17 @@
         }
 
         //
-        :where(*) {
+        :where(img, picture, span, a, button, input, svg, video, canvas) {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            -ms-user-drag: none;
+            user-drag: none;
+        }
+
+        //
+        :where(img, picture, span, a,  div, label, input, svg, video, canvas) {
             @include ps.disable-transform();
 
             //
@@ -161,19 +172,9 @@
                 user-select: none;
 
                 //
-                -webkit-user-drag: none;
-                -khtml-user-drag: none;
-                -moz-user-drag: none;
-                -o-user-drag: none;
-                -ms-user-drag: none;
-                user-drag: none;
-
-                //
                 //-webkit-box-shadow: none;
                 -webkit-tap-highlight-color: transparent;
                 -moz-tap-highlight-color: transparent;
-                //box-shadow: none;
-                box-sizing: border-box;
 
                 //
                 touch-action: pan-y pan-x;
