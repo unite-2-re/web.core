@@ -26,6 +26,19 @@
         transition-behavior: allow-discrete;
         interpolate-size: allow-keywords;
         box-sizing: border-box;
+        transform-origin: 50% 50%;
+        transform: translate3d(var(--translate-x, 0%), var(--translate-y, 0%), 0) scale3d(var(--scale, 1), var(--scale, 1), var(--scale, 1));
+        translate: 0% 0% 0%;
+        opacity: var(--opacity, 1);
+        rotate: 0deg;
+        scale: 1;
+
+        //
+        --opacity: 1;
+        --scale: 1;
+        --rotate: 0deg;
+        --translate-x: 0%;
+        --translate-y: 0%;
     }
 
     //
@@ -177,21 +190,8 @@
         }
 
         //
-        :where(img, picture, span, a,  div, label, input, svg, video, canvas) {
+        :where(ui-icon, svg) {
             @include ps.disable-transform();
-
-            //
-            &:not(ui-scrollbox) {
-                // default effects
-                --translate-x: 0px;
-                --translate-y: 0px;
-                --scale: 1;
-                --opacity: 1;
-
-                //
-                transform: translate(var(--translate-x, 0px), var(--translate-y, 0px)) scale(var(--scale, 1));
-                opacity: var(--opacity, 1);
-            }
         }
 
         //
@@ -384,12 +384,6 @@
     :where(head, script, style, link, meta) {
         display: none !important;
         user-select: none !important;
-        pointer-events: none !important;
-    }
-
-    //
-    [data-hidden] *, :host([data-hidden]) *, :host([data-hidden])::slotted(*) {
-        display: none !important;
         pointer-events: none !important;
     }
 
