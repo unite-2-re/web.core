@@ -27,7 +27,12 @@
         interpolate-size: allow-keywords;
         box-sizing: border-box;
         transform-origin: 50% 50%;
-        transform: translate3d(var(--translate-x, 0%), var(--translate-y, 0%), 0) scale3d(var(--scale, 1), var(--scale, 1), var(--scale, 1));
+        transform: 
+            translate3d(
+                round(nearest, var(--translate-x, 0%), calc(1px / var(--pixel-ratio, 1))), 
+                round(nearest, var(--translate-y, 0%), calc(1px / var(--pixel-ratio, 1)))
+                , 0) 
+            scale3d(var(--scale, 1), var(--scale, 1), var(--scale, 1));
         translate: 0% 0% 0%;
         opacity: var(--opacity, 1);
         rotate: 0deg;
