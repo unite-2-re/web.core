@@ -407,6 +407,12 @@
         }
 
         //
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        //
         *:not(:defined), style, script, link {
             display: none !important; visibility: collapse !important;
         }
@@ -433,7 +439,7 @@
         //
         @page {
             size: A4;
-            margin: 27mm 16mm 27mm 16mm;
+            margin: 16mm 16mm 16mm 16mm;
 
             //
             @bottom-center {
