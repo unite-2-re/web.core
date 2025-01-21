@@ -402,8 +402,32 @@
 
         // any where not printable, not printable any children...
         // and assume until any printable
-        @scope (:not([data-print])) to (*[data-print]) {
-            :scope *:not([data-print]) { display: none !important; };
+        @scope (:where(body, :host) :not([data-print])) to (*[data-print]) {
+            :scope *:not([data-print]) { display: none !important; visibility: collapse !important; };
+        }
+
+        //
+        [data-print] {
+            :where(*) {
+                font-family: "Times New Roman";
+                text-align: justify;
+            }
+
+            //
+            table, li, p { break-inside: avoid-page; };
+            h1, h2, h3, h4, h5, h6 { break-after: avoid-page; };
+            hr { page-break-after: always; break-after: page; };
+        }
+
+        //
+        @page {
+            size: A4;
+            margin: 27mm 16mm 27mm 16mm;
+
+            //
+            @bottom-center {
+                content: counter(page);
+            }
         }
     };
 
