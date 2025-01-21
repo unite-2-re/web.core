@@ -7,389 +7,404 @@
     @layer ux-agate;
 
     //
-    :where(html, body) {
+    @media screen {
+
         //
-        & {
-            padding: 0px;
-            margin: 0px;
-            inset: 0px;
-            border: none 0px transparent;
-            background-color: transparent;
+        :where(html, body) {
+            //
+            & {
+                padding: 0px;
+                margin: 0px;
+                inset: 0px;
+                border: none 0px transparent;
+                background-color: transparent;
+            }
+
+            //
+            & { @include ps.HQRendering(); };
         }
 
         //
-        & { @include ps.HQRendering(); };
-    }
+        :where(*), ::slotted(*) {
+            transition-behavior: allow-discrete;
+            interpolate-size: allow-keywords;
+            box-sizing: border-box;
+            transform-origin: 50% 50%;
+            transform: 
+                translate3d(
+                    round(nearest, var(--translate-x, 0%), calc(1px / var(--pixel-ratio, 1))), 
+                    round(nearest, var(--translate-y, 0%), calc(1px / var(--pixel-ratio, 1)))
+                    , 0) 
+                scale3d(var(--scale, 1), var(--scale, 1), var(--scale, 1));
+            translate: 0% 0% 0%;
+            opacity: var(--opacity, 1);
+            rotate: 0deg;
+            scale: 1;
 
-    //
-    :where(*), ::slotted(*) {
-        transition-behavior: allow-discrete;
-        interpolate-size: allow-keywords;
-        box-sizing: border-box;
-        transform-origin: 50% 50%;
-        transform: 
-            translate3d(
-                round(nearest, var(--translate-x, 0%), calc(1px / var(--pixel-ratio, 1))), 
-                round(nearest, var(--translate-y, 0%), calc(1px / var(--pixel-ratio, 1)))
-                , 0) 
-            scale3d(var(--scale, 1), var(--scale, 1), var(--scale, 1));
-        translate: 0% 0% 0%;
-        opacity: var(--opacity, 1);
-        rotate: 0deg;
-        scale: 1;
-
-        //
-        --opacity: 1;
-        --scale: 1;
-        --rotate: 0deg;
-        --translate-x: 0%;
-        --translate-y: 0%;
-    }
-
-    //
-    :root, :where(html) {
-        translate: 0px 0px !important;
-        transform: none !important;
-        margin: 0px !important;
-        padding: 0px !important;
-        border: none 0px transparent !important;
-        outline: none 0px transparent !important;
+            //
+            --opacity: 1;
+            --scale: 1;
+            --rotate: 0deg;
+            --translate-x: 0%;
+            --translate-y: 0%;
+        }
 
         //
-        background-color: transparent;
-        container-type: normal;
-        container-name: html root;
-        contain: none;
-        overflow: visible;
-        position: fixed;
-        inset: 0px;
-        inset-block-end: auto;
-
-        //
-        min-inline-size: 100dvi;
-        min-block-size: 100dvb;
-
-        //
-        inline-size: max-content;
-        block-size: max-content;
-
-        //
-        max-inline-size: none;
-        max-block-size: none;
-
-        //
-        place-content: start;
-        place-items: start;
-        place-self: start;
-
-        //
-        line-height: 0;
-        flex-direction: column;
-        display: flex;
-    }
-
-    //
-    :root, :host, :scope, :where(body) {
-        pointer-events: auto;
-
-        //
-        transition-behavior: allow-discrete;
-        interpolate-size: allow-keywords;
-
-        //
-        --keyboard-inset-bottom: calc(max(env(keyboard-inset-bottom, 0px), 0px) / max(var(--zoom, 1), 0.125));
-        --keyboard-inset-height: calc(max(env(keyboard-inset-height, 0px), 0px) / max(var(--zoom, 1), 0.125));
-    }
-
-    //
-    :where(:root, body, html, button) {
-        font-family: 'Open Sans', 'Gill Sans Nova', Ubuntu, 'DejaVu Sans', Candara, Segoe, "Segoe UI", Optima, source-sans-pro, sans-serif;
-        //@include dFont.applyFont(0.9rem);
-    }
-
-    //
-    :where(body) {
-
-        //
-        & {
+        :root, :where(html) {
             translate: 0px 0px !important;
             transform: none !important;
             margin: 0px !important;
+            padding: 0px !important;
+            border: none 0px transparent !important;
+            outline: none 0px transparent !important;
 
             //
-            font-size: 0.9rem;
-
-            //
-            overflow: visible;
-            position: relative;
-            pointer-events: auto;
-            inset: 0px;
-
-            //
-            display: inline flex;
-            place-content: start;
-            place-items: start;
-            place-self: start;
-
-            //
-            background-color: var(--theme-base-color, transparent);
-
-            // if needs viewport
-            container-name: body;
+            background-color: transparent;
             container-type: normal;
+            container-name: html root;
             contain: none;
+            overflow: visible;
+            position: fixed;
+            inset: 0px;
+            inset-block-end: auto;
 
             //
             min-inline-size: 100dvi;
             min-block-size: 100dvb;
 
             //
-            inline-size: 100%;
-            block-size: 100%;
-        }
-
-        //
-        & > :where(*) {
-            display: grid;
-            place-self: safe center;
-            grid-column: 1 / 1 span;
-            grid-row: 1 / 1 span;
-        }
-    }
-
-    //
-    :host, :scope, :root {
-
-        //
-        :where(*) {
-            touch-action: none;
+            inline-size: max-content;
+            block-size: max-content;
 
             //
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -o-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+            max-inline-size: none;
+            max-block-size: none;
 
             //
-            -webkit-tap-highlight-color: transparent;
-            -moz-tap-highlight-color: transparent;
+            place-content: start;
+            place-items: start;
+            place-self: start;
+
+            //
+            line-height: 0;
+            flex-direction: column;
+            display: flex;
         }
 
         //
-        :where(button, input, form) {
-            border: none;
-            outline: none;
+        :root, :host, :scope, :where(body) {
+            pointer-events: auto;
+
+            //
+            transition-behavior: allow-discrete;
+            interpolate-size: allow-keywords;
+
+            //
+            --keyboard-inset-bottom: calc(max(env(keyboard-inset-bottom, 0px), 0px) / max(var(--zoom, 1), 0.125));
+            --keyboard-inset-height: calc(max(env(keyboard-inset-height, 0px), 0px) / max(var(--zoom, 1), 0.125));
         }
 
         //
-        :where(img, picture, span, a, button, input, svg, video, canvas) {
-            touch-action: none;
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            -ms-user-drag: none;
-            user-drag: none;
+        :where(:root, body, html, button) {
+            font-family: 'Open Sans', 'Gill Sans Nova', Ubuntu, 'DejaVu Sans', Candara, Segoe, "Segoe UI", Optima, source-sans-pro, sans-serif;
+            //@include dFont.applyFont(0.9rem);
         }
 
         //
-        :where(ui-icon, svg) {
-            @include ps.disable-transform();
-        }
-
-        //
-        :where(canvas, img, picture, video) {
-            user-select: none;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        //
-        :where(picture) {
-            display: contents;
-        }
-
-        //
-        :dir(rtl) :where(*), :where(*):dir(rtl) {
-            direction: rtl;
-        }
-
-        //
-        :dir(ltr) :where(*), :where(*):dir(ltr) {
-            direction: ltr;
-        }
-
-        //
-        :where(.lucide, svg) {
+        :where(body) {
 
             //
             & {
-                inline-size: max-content;
+                translate: 0px 0px !important;
+                transform: none !important;
+                margin: 0px !important;
+
+                //
+                font-size: 0.9rem;
+
+                //
+                overflow: visible;
+                position: relative;
+                pointer-events: auto;
+                inset: 0px;
+
+                //
+                display: inline flex;
+                place-content: start;
+                place-items: start;
+                place-self: start;
+
+                //
+                background-color: var(--theme-base-color, transparent);
+
+                // if needs viewport
+                container-name: body;
+                container-type: normal;
+                contain: none;
+
+                //
+                min-inline-size: 100dvi;
+                min-block-size: 100dvb;
+
+                //
+                inline-size: 100%;
                 block-size: 100%;
-                aspect-ratio: 1 / 1;
+            }
+
+            //
+            & > :where(*) {
+                display: grid;
+                place-self: safe center;
+                grid-column: 1 / 1 span;
+                grid-row: 1 / 1 span;
+            }
+        }
+
+        //
+        :host, :scope, :root {
+
+            //
+            :where(*) {
+                touch-action: none;
+
+                //
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -o-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+
+                //
+                -webkit-tap-highlight-color: transparent;
+                -moz-tap-highlight-color: transparent;
+            }
+
+            //
+            :where(button, input, form) {
+                border: none;
+                outline: none;
+            }
+
+            //
+            :where(img, picture, span, a, button, input, svg, video, canvas) {
+                touch-action: none;
+                -webkit-user-drag: none;
+                -khtml-user-drag: none;
+                -moz-user-drag: none;
+                -o-user-drag: none;
+                -ms-user-drag: none;
+                user-drag: none;
+            }
+
+            //
+            :where(ui-icon, svg) {
+                @include ps.disable-transform();
+            }
+
+            //
+            :where(canvas, img, picture, video) {
+                user-select: none;
+                pointer-events: none;
+                overflow: hidden;
+            }
+
+            //
+            :where(picture) {
+                display: contents;
+            }
+
+            //
+            :dir(rtl) :where(*), :where(*):dir(rtl) {
+                direction: rtl;
+            }
+
+            //
+            :dir(ltr) :where(*), :where(*):dir(ltr) {
+                direction: ltr;
+            }
+
+            //
+            :where(.lucide, svg) {
+
+                //
+                & {
+                    inline-size: max-content;
+                    block-size: 100%;
+                    aspect-ratio: 1 / 1;
+
+                    //
+                    container-type: normal;
+                    contain: none;
+
+                    //
+                    transform: none;
+                    translate: 0px 0px;
+
+                    //
+                    object-fit: contain;
+                    object-position: center center;
+                    place-items: center;
+                    place-content: center;
+
+                    //
+                    filter: none;
+                    backdrop-filter: none;
+
+                    //
+                    stroke: var(--current-glyph-color, currentColor);
+                }
+
+                & {
+                    interactivity: inert;
+                    pointer-events: none;
+                    user-select: none;
+                    touch-action: none;
+                }
+
+                //
+                //& { @include ps.HQRendering(); };
+                & { @include ps.LQRendering(); };
+            }
+
+            //
+            :where(ui-icon, label, form) {
+                @include ps.LQRendering();
+            }
+
+            //
+            :where([inert], *[inert]) {
+                pointer-events: none !important;
+                user-select: none !important;
+                touch-action: none !important;
+            }
+
+            //
+            @media (prefers-reduced-motion: reduce) {
+                :where(*),
+                ::after,
+                ::before {
+                    animation-delay: -1ms !important;
+                    animation-duration: 1ms !important;
+                    animation-iteration-count: 1 !important;
+                    background-attachment: initial !important;
+                    scroll-behavior: auto !important;
+                    transition-delay: 0s !important;
+                    transition-duration: 0s !important;
+                }
+            }
+
+            //
+            :where(button) {
+                display: flex;
+                place-items: center;
+                place-content: center;
+
+                //
+                color: var(--current-glyph-color);
+                background-color: var(--current-surface-color);
+
+                //
+                cursor: pointer;
+                pointer-events: auto;
+
+                //
+                padding: 0px;
+                margin: 0px;
+
+                //
+                border: none 0px transparent;
+                outline: none 0px transparent;
+
+                //
+                line-height: 0px;
+            }
+
+            //
+            :where(a, span) {
+                text-decoration: none;
+                background-color: transparent;
+                place-content: center;
+                place-items: center;
+                justify-content: start;
+            }
+
+            // relative by default
+            :where(label) { position: relative; }
+            :where(body) :where(div, label) {
+                display: inline flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                box-sizing: border-box;
 
                 //
                 container-type: normal;
                 contain: none;
 
                 //
-                transform: none;
-                translate: 0px 0px;
-
-                //
-                object-fit: contain;
-                object-position: center center;
                 place-items: center;
                 place-content: center;
 
                 //
-                filter: none;
-                backdrop-filter: none;
+                min-inline-size: 0px;
+                min-block-size: 0px;
+                inline-size: max-content;
+                block-size: max-content;
+                max-inline-size: none;
+                max-block-size: none;
 
                 //
-                stroke: var(--current-glyph-color, currentColor);
+                gap: 0px;
+                padding: 0px;
+                margin: 0px;
+
+                //
+                inset: var(--cs-inset-y, 0px) auto auto var(--cs-inset-x, 0px);
             }
 
-            & {
-                interactivity: inert;
+            //
+            :where(.space, flex-space) {
+                flex-grow: 1;
+                flex-shrink: 0;
+            }
+
+            //
+            :where(.break, flex-break, br) {
+                flex-basis: 100%;
+                flex-grow: 1;
+                flex-shrink: 0;
+            }
+
+            // weird idea...
+            label > input:where([type="radio"], [type="checkbox"]) {
+                display: none;
                 pointer-events: none;
-                user-select: none;
-                touch-action: none;
             }
 
-            //
-            //& { @include ps.HQRendering(); };
-            & { @include ps.LQRendering(); };
+            // able to select inputs when edit
+            :where(input[type="text"], input[type="number"]) {
+                user-select: auto;
+            }
+
         }
 
         //
-        :where(ui-icon, label, form) {
-            @include ps.LQRendering();
-        }
-
-        //
-        :where([inert], *[inert]) {
-            pointer-events: none !important;
+        :where(head, script, style, link, meta) {
+            display: none !important;
             user-select: none !important;
-            touch-action: none !important;
+            pointer-events: none !important;
         }
 
-        //
-        @media (prefers-reduced-motion: reduce) {
-            :where(*),
-            ::after,
-            ::before {
-                animation-delay: -1ms !important;
-                animation-duration: 1ms !important;
-                animation-iteration-count: 1 !important;
-                background-attachment: initial !important;
-                scroll-behavior: auto !important;
-                transition-delay: 0s !important;
-                transition-duration: 0s !important;
-            }
-        }
-
-        //
-        :where(button) {
-            display: flex;
-            place-items: center;
-            place-content: center;
-
-            //
-            color: var(--current-glyph-color);
-            background-color: var(--current-surface-color);
-
-            //
-            cursor: pointer;
-            pointer-events: auto;
-
-            //
-            padding: 0px;
-            margin: 0px;
-
-            //
-            border: none 0px transparent;
-            outline: none 0px transparent;
-
-            //
-            line-height: 0px;
-        }
-
-        //
-        :where(a, span) {
-            text-decoration: none;
-            background-color: transparent;
-            place-content: center;
-            place-items: center;
-            justify-content: start;
-        }
-
-        // relative by default
-        :where(label) { position: relative; }
-        :where(body) :where(div, label) {
-            display: inline flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            box-sizing: border-box;
-
-            //
-            container-type: normal;
-            contain: none;
-
-            //
-            place-items: center;
-            place-content: center;
-
-            //
-            min-inline-size: 0px;
-            min-block-size: 0px;
-            inline-size: max-content;
-            block-size: max-content;
-            max-inline-size: none;
-            max-block-size: none;
-
-            //
-            gap: 0px;
-            padding: 0px;
-            margin: 0px;
-
-            //
-            inset: var(--cs-inset-y, 0px) auto auto var(--cs-inset-x, 0px);
-        }
-
-        //
-        :where(.space, flex-space) {
-            flex-grow: 1;
-            flex-shrink: 0;
-        }
-
-        //
-        :where(.break, flex-break, br) {
-            flex-basis: 100%;
-            flex-grow: 1;
-            flex-shrink: 0;
-        }
-
-        // weird idea...
-        label > input:where([type="radio"], [type="checkbox"]) {
-            display: none;
-            pointer-events: none;
-        }
-
-        // able to select inputs when edit
-        :where(input[type="text"], input[type="number"]) {
-            user-select: auto;
-        }
-
-    }
+    };
 
     //
-    :where(head, script, style, link, meta) {
-        display: none !important;
-        user-select: none !important;
-        pointer-events: none !important;
-    }
+    @media print {
+
+        // any where not printable, not printable any children...
+        // and assume until any printable
+        @scope (:not([data-print])) to (*[data-print]) {
+            :scope *:not([data-print]) { display: none !important; };
+        }
+    };
 
 };
