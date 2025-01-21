@@ -402,11 +402,22 @@
 
         // any where not printable, not printable any children...
         // and assume until any printable
-        @scope (:where(body, :host) :not([data-print])) to (*[data-print]) {
-            :scope *:not([data-print]) { display: none !important; visibility: collapse !important; };
+        @scope (:where(body, :host) :not([data-print])) to ([data-print]) {
+            :scope *:not([data-print]):not([data-print-pass]) { display: none !important; visibility: collapse !important; };
         }
 
         //
+        *:not(:defined), style, script, link {
+            display: none !important; visibility: collapse !important;
+        }
+
+        // if can be passed for print
+        [data-print-pass] {
+            display: contents !important;
+            visibility: visible;
+        }
+
+        // can be printed itself
         [data-print] {
             :where(*) {
                 font-family: "Times New Roman";
