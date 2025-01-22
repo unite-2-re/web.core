@@ -397,19 +397,180 @@
 
     };
 
+    // can be printed itself
+    [data-print] {
+        *, *::before, *::after {
+            box-sizing: border-box;
+            white-space: normal;
+        }
+
+        body {
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img, picture, video, canvas, svg {
+            display: block;
+            max-width: 100%;
+        }
+
+        input, button, textarea, select {
+            font: inherit;
+        }
+
+        p, h1, h2, h3, h4, h5, h6 {
+            overflow-wrap: break-word;
+        }
+
+        p {
+            text-wrap: pretty;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            text-wrap: balance;
+        }
+
+        #root, #__next {
+            isolation: isolate;
+        }
+
+        p, ol, ul {
+            block-size: max-content;
+            display: block;
+        }
+
+        //
+        & {
+            text-align: justify;
+            font-family: "Times New Roman";
+            overflow: auto;
+            font-family: 11pt;
+        };
+
+        //
+        p { font-family: 11pt; }
+
+        //
+        strong {
+            display: inline;
+            white-space: normal;
+            font-weight: bold;
+        }
+
+        //
+        h1, h2, h3, h4, h5, h6 {
+            display: block;
+            flex-direction: row;
+        }
+
+        //
+        :where(ol, ul) {
+            list-style-position: inside;
+            margin: 0px;
+            padding: 0px;
+            margin-inline-start: 1em;
+        }
+
+        //
+        :where(ol, ul) :where(ol, ul) {
+            padding-inline-start: 1em;
+            margin: 0px;
+            margin-block: 0.5rem;
+        }
+
+        //
+        li {
+            padding: 0px;
+            white-space: normal;
+            list-style-position: inside;
+            margin-bottom: 0.25rem;
+            
+            //
+            p {
+                display: inline;
+                list-style-position: inside;
+            }
+
+            //
+            &::marker {
+                display: inline;
+                white-space: nowrap;
+            }
+        }
+
+        //
+        table, li, p, blockquote, ol, ul { break-inside: avoid-page; };
+        h1, h2, h3, h4, h5, h6, li, blockquote { break-before: auto; break-after: avoid-page; };
+        ul, ol { break-before: avoid-page; };
+
+        //
+        .pb, .np, .pagebreak, .newpage, .page-break, .new-page { border: none 0px transparent; background-color: transparent; page-break-after: always; break-after: page; };
+
+        //
+        h1 {
+            text-align: center;
+        }
+
+        //
+        h1, h2, h3, h4, h5, h6 {
+            border: none 0px transparent;
+            font-family: "Times New Roman", serif;
+            font-weight: bold;
+            margin: 1em 0;
+        }
+
+        //
+        h1, h2 {
+            border-bottom: 1px solid #0004;
+            padding-bottom: 0.25em;
+            margin-bottom: 1em;
+            inline-size: 100%;
+        }
+
+        //
+        h2 {
+            border-bottom: 1px solid #0003;
+        }
+
+        //
+        h1 { font-size: 2em; };
+        h2 { font-size: 1.6em; };
+        h3 { font-size: 1.4em; };
+        h4 { font-size: 1.2em; };
+        h5 { font-size: 1.15em; };
+        h6 { font-size: 1.1em; };
+
+        //
+        hr {
+            display: block;
+            block-size: 1px;
+            background-color: #0004;
+            border-bottom: none 0px transparent;
+            margin: 0px 1em;
+        }
+    }
+
     //
     @media print {
 
         // any where not printable, not printable any children...
         // and assume until any printable
-        @scope (:where(body, :host) :not([data-print])) to ([data-print]) {
-            :scope *:not([data-print]):not([data-print-pass]) { display: none !important; visibility: collapse !important; };
+        @scope (:where(body, :host) :not([data-print])) to (:has(> [data-print])) {
+            :scope > :where(div, :not(:defined)):not([data-print]):not([data-print-pass]) 
+                { display: none !important; visibility: collapse !important; };
+        }
+
+        //
+        hr {
+            border: none 0px transparent;
+            background-color: transparent;
         }
 
         //
         body {
             margin: 0px;
             padding: 0px;
+            overflow: auto;
         }
 
         //
@@ -421,19 +582,6 @@
         [data-print-pass] {
             display: contents !important;
             visibility: visible;
-        }
-
-        // can be printed itself
-        [data-print] {
-            :where(*) {
-                font-family: "Times New Roman";
-                text-align: justify;
-            }
-
-            //
-            table, li, p { break-inside: avoid-page; };
-            h1, h2, h3, h4, h5, h6 { break-after: avoid-page; };
-            hr { page-break-after: always; break-after: page; };
         }
 
         //
