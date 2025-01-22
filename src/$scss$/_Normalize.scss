@@ -557,6 +557,20 @@
             border-bottom: none 0px transparent;
             margin: 0px 1em;
         }
+
+        //
+        img {
+            color: transparent;
+            font-size: 0px;
+            line-height: 0;
+        }
+
+        //
+        img:not([src]), img[src=""], img.error {
+            display: none;
+            visibility: collapse;
+            content-visibility: hidden;
+        }
     }
 
     //
