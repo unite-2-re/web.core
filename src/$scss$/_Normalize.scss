@@ -500,8 +500,17 @@
 
         //
         table, li, p, blockquote, ol, ul { break-inside: avoid-page; };
-        h1, h2, h3, h4, h5, h6, li, blockquote { break-before: auto; break-after: avoid-page; };
-        ul, ol { break-before: avoid-page; };
+        h1, h2, h3, h4, h5, h6, blockquote { break-before: auto; break-inside: avoid-page; break-after: avoid-page; };
+
+        //
+        :not(h1, h2, h3, h4, h5, h6) + :where(ul, ol, li) { break-before: avoid-page; };
+
+        // avoid breaking page, except any another <p> element
+        p:has(strong) { break-after: avoid-page; break-before: avoid-page; };
+        p + :not(p) { break-before: avoid-page; };
+        p:has(+ :not(p)) { break-after: avoid-page; }
+
+        strong { break-inside: avoid-page; break-before: avoid-page; break-after: avoid-page; };
 
         //
         .pb, .np, .pagebreak, .newpage, .page-break, .new-page { border: none 0px transparent; background-color: transparent; page-break-after: always; break-after: page; };
@@ -536,8 +545,8 @@
         h1 { font-size: 2em; };
         h2 { font-size: 1.6em; };
         h3 { font-size: 1.4em; };
-        h4 { font-size: 1.2em; };
-        h5 { font-size: 1.15em; };
+        h4 { font-size: 1.3em; };
+        h5 { font-size: 1.2em; };
         h6 { font-size: 1.1em; };
 
         //
