@@ -516,16 +516,17 @@
         .pb, .np, .pagebreak, .newpage, .page-break, .new-page { border: none 0px transparent; background-color: transparent; page-break-after: always; break-after: page; };
 
         //
-        h1 {
-            text-align: center;
-        }
-
-        //
         h1, h2, h3, h4, h5, h6 {
             border: none 0px transparent;
             font-family: "Times New Roman", serif;
             font-weight: bold;
             margin: 1em 0;
+            text-align: start;
+        }
+
+        //
+        h1 {
+            text-align: center;
         }
 
         //
@@ -543,11 +544,11 @@
 
         //
         h1 { font-size: 2em; };
-        h2 { font-size: 1.6em; };
-        h3 { font-size: 1.4em; };
-        h4 { font-size: 1.3em; };
-        h5 { font-size: 1.2em; };
-        h6 { font-size: 1.1em; };
+        h2 { font-size: 1.4em; };
+        h3 { font-size: 1.2em; };
+        h4 { font-size: 1.05em; };
+        h5 { font-size: 1em; };
+        h6 { font-size: 1em; };
 
         //
         hr {
