@@ -441,14 +441,16 @@
 
         //
         & {
+            white-space: normal;
             text-align: justify;
             font-family: "Times New Roman";
             overflow: auto;
-            font-family: 11pt;
+            font-family: 10pt;
         };
 
         //
-        p { font-family: 11pt; }
+        p { font-family: 10pt; }
+        p { white-space: pre-line; };
 
         //
         strong {
@@ -484,11 +486,13 @@
             white-space: normal;
             list-style-position: inside;
             margin-bottom: 0.25rem;
+            text-align: start;
             
             //
             p {
                 display: inline;
                 list-style-position: inside;
+                white-space: normal;
             }
 
             //
@@ -508,7 +512,7 @@
         // avoid breaking page, except any another <p> element
         p:has(strong) { break-after: avoid-page; break-before: avoid-page; };
         p + :not(p) { break-before: avoid-page; };
-        p:has(+ :not(p)) { break-after: avoid-page; }
+        p:has(+ :not(p, h1, h2, h3, h4, h5, h6)) { break-after: avoid-page; };
 
         strong { break-inside: avoid-page; break-before: avoid-page; break-after: avoid-page; };
 
@@ -525,6 +529,11 @@
         }
 
         //
+        :where(ol, ul, li) + p {
+            break-before: avoid-page;
+        }
+
+        //
         h1 {
             text-align: center;
         }
@@ -538,16 +547,27 @@
         }
 
         //
-        h2 {
+        :not(h1) + h2 {
+            break-before: page;
             border-bottom: 1px solid #0003;
         }
 
         //
+        h1 + h2 {
+            border-bottom: 0px none transparent;
+        }
+
+        //
+        h3, h4, h5, h6 {
+            inline-size: max-content;
+        }
+
+        //
         h1 { font-size: 2em; };
-        h2 { font-size: 1.4em; };
-        h3 { font-size: 1.2em; };
-        h4 { font-size: 1.05em; };
-        h5 { font-size: 1em; };
+        h2 { font-size: 1.6em; };
+        h3 { font-size: 1.4em; border-bottom: 1px solid #0003; padding-block-end: 0.25em; margin-block-end: 1rem; };
+        h4 { font-size: 1.1em; };
+        h5 { font-size: 1.05em; };
         h6 { font-size: 1em; };
 
         //
@@ -611,7 +631,7 @@
         //
         @page {
             size: A4;
-            margin: 16mm 16mm 16mm 16mm;
+            margin: 10mm 16mm 10mm 16mm;
 
             //
             @bottom-center {
