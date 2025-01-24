@@ -423,6 +423,7 @@
         }
 
         p {
+            text-indent: 1em;
             text-wrap: pretty;
         }
 
@@ -470,13 +471,23 @@
             list-style-position: inside;
             margin: 0px;
             padding: 0px;
-            margin-inline-start: 1em;
+            margin-inline-start: 0.5em;
         }
 
         //
         :where(ol, ul) :where(ol, ul) {
             padding-inline-start: 1em;
             margin: 0px;
+            margin-block: 0.5rem;
+        }
+
+        //
+        ol, ul, li {
+            text-indent: 1em;
+        }
+
+        //
+        p {
             margin-block: 0.5rem;
         }
 
@@ -547,15 +558,18 @@
         }
 
         //
+        h2 { border-bottom: 1px solid #0003; }
+
+        //
         :not(h1) + h2 {
             break-before: page;
-            border-bottom: 1px solid #0003;
+            //border-bottom: 1px solid #0003;
         }
 
         //
-        h1 + h2 {
+        /*h1 + h2 {
             border-bottom: 0px none transparent;
-        }
+        }*/
 
         //
         h3, h4, h5, h6 {
@@ -565,9 +579,9 @@
         //
         h1 { font-size: 2em; };
         h2 { font-size: 1.6em; };
-        h3 { font-size: 1.4em; border-bottom: 1px solid #0003; padding-block-end: 0.25em; margin-block-end: 1rem; };
-        h4 { font-size: 1.1em; };
-        h5 { font-size: 1.05em; };
+        h3 { font-size: 1.2em; border-bottom: 1px solid #0003; padding-block-end: 0.25em; margin-block-end: 1rem; };
+        h4 { font-size: 1.05em; };
+        h5 { font-size: 1em; };
         h6 { font-size: 1em; };
 
         //
@@ -592,6 +606,32 @@
             visibility: collapse;
             content-visibility: hidden;
         }
+
+        //
+        div.hide, span.hide {
+            display: none;;
+            visibility: collapse;
+            content: "\[...\]";
+            break-inside: avoid-page;
+            //display: inline;
+        }
+
+        blockquote {
+            border-inline-start: solid 0.25em oklch(from var(--rv-color, #000) l c h / 0.1);
+            padding-inline-start: 0.5em;
+            margin-inline: 0px;
+        }
+
+        table {
+            inline-size: 100%;
+            border-collapse: collapse;
+            border: solid 1px oklch(from var(--rv-color, #000) l c h / 0.1);
+
+            thead, tfoot, tbody, th, td, tr {
+                padding: 0.25em;
+                border: solid 1px oklch(from var(--rv-color, #000) l c h / 0.1);
+            }
+        }
     }
 
     //
@@ -602,6 +642,25 @@
         @scope (:where(body, :host) :not([data-print])) to (:has(> [data-print])) {
             :scope > :where(div, img, canvas, :not(:defined)):not([data-print]):not([data-print-pass]) 
                 { display: none !important; visibility: collapse !important; };
+        }
+
+        //
+        li, ul, ol {
+            text-align: start;
+        }
+
+        //
+        blockquote {
+            border-inline-start: solid 0.25em #0004;
+        }
+
+        //
+        table {
+            border: solid 1px #0004;
+
+            thead, tfoot, tbody, th, td, tr {
+                border: solid 1px #0004;
+            }
         }
 
         //
