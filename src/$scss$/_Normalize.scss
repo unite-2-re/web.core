@@ -10,7 +10,8 @@
     @media screen {
 
         //
-        :where(div, button, span, svg, ui-icon, :not(:defined)) {
+        :where(div, button, span, svg, video, canvas, img, input, ui-icon, :not(:defined)) {
+            transform: translateZ(0);
             backdrop-filter: none;
             box-shadow: none;
             filter: none;
@@ -70,6 +71,9 @@
             & { @include ps.LQRendering(); };
         }
 
+        // if there is nothing, why there is needs content?
+        *:not(img, canvas, ui-icon, video, picture, input, ui-calendar):empty { content-visibility: hidden !important; }
+
         //
         [data-dragging], :where(ui-frame, ui-modal, .ui-grid-item):active {
             will-change: transform;
@@ -86,6 +90,10 @@
             content-visibility: auto;
         }
 
+        #markdown * {
+            contain-intrinsic-block-size: auto 1em;
+        }
+
         //
         [data-hidden] #markdown {
             display: none !important;
@@ -93,7 +101,15 @@
         }
 
         //
-        #markdown { isolation: isolate; }
+        [data-dragging] #markdown {
+            content-visibility: hidden !important;
+            :where(*) {
+                content-visibility: hidden !important;
+            }
+        }
+
+        //
+        #markdown { isolation: isolate; touch-action: pan-y; }
 
         //
         :root, :where(html) {
