@@ -10,6 +10,13 @@
     @media screen {
 
         //
+        :where(div, button, span, svg, ui-icon, :not(:defined)) {
+            backdrop-filter: none;
+            box-shadow: none;
+            filter: none;
+        }
+
+        //
         :where(html, body) {
             //
             & {
@@ -58,8 +65,16 @@
                 --translate-x: 0%;
                 --translate-y: 0%;
             };
+
+            //
             & { @include ps.LQRendering(); };
         }
+
+        //
+        [data-dragging], :where(ui-frame, ui-modal, .ui-grid-item):active {
+            will-change: transform;
+            @include ps.LQRendering();
+        };
 
         //
         ui-icon {
@@ -67,12 +82,7 @@
         }
 
         //
-        body, html, canvas, img, #markdown, #viewport {
-            content-visibility: auto;
-        }
-
-        //
-        [data-hidden] {
+        body, html, canvas, img, #markdown, #viewport, [data-hidden], #markdown, #markdown * {
             content-visibility: auto;
         }
 
@@ -83,9 +93,7 @@
         }
 
         //
-        #markdown * {
-            content-visibility: auto;
-        }
+        #markdown { isolation: isolate; }
 
         //
         :root, :where(html) {
@@ -441,6 +449,11 @@
         *, *::before, *::after {
             box-sizing: border-box;
             white-space: normal;
+        }
+
+        & { isolation: isolate; }
+        &, * {
+            content-visibility: auto;
         }
 
         body {
