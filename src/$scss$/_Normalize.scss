@@ -32,14 +32,9 @@
         }
 
         //
-        ui-frame, ui-window, ui-modal {
-            isolation: isolate;
-        }
-
-        //
-        //:where(*), ::slotted(*)
-        ui-frame, ui-window, ui-modal, .ui-grid-item
+        ui-frame, ui-modal, .ui-grid-item
         {
+            isolation: isolate;
             content-visibility: auto;
             transform-origin: 50% 50%;
             transform: 
