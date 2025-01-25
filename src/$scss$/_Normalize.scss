@@ -29,31 +29,36 @@
             transition-behavior: allow-discrete;
             interpolate-size: allow-keywords;
             box-sizing: border-box;
+            background-image: none;
+            mask-image: none;
         }
 
         //
         ui-frame, ui-modal, .ui-grid-item
         {
-            isolation: isolate;
-            content-visibility: auto;
-            transform-origin: 50% 50%;
-            transform: 
-                translate3d(
-                    round(nearest, var(--translate-x, 0%), calc(1px / var(--pixel-ratio, 1))), 
-                    round(nearest, var(--translate-y, 0%), calc(1px / var(--pixel-ratio, 1)))
-                    , 0) 
-                scale3d(var(--scale, 1), var(--scale, 1), var(--scale, 1));
-            translate: 0% 0% 0%;
-            opacity: var(--opacity, 1);
-            rotate: 0deg;
-            scale: 1;
+            & {
+                isolation: isolate;
+                content-visibility: auto;
+                transform-origin: 50% 50%;
+                transform: 
+                    translate3d(
+                        round(nearest, var(--translate-x, 0%), calc(1px / var(--pixel-ratio, 1))), 
+                        round(nearest, var(--translate-y, 0%), calc(1px / var(--pixel-ratio, 1)))
+                        , 0) 
+                    scale3d(var(--scale, 1), var(--scale, 1), var(--scale, 1));
+                translate: 0% 0% 0%;
+                opacity: var(--opacity, 1);
+                rotate: 0deg;
+                scale: 1;
 
-            //
-            --opacity: 1;
-            --scale: 1;
-            --rotate: 0deg;
-            --translate-x: 0%;
-            --translate-y: 0%;
+                //
+                --opacity: 1;
+                --scale: 1;
+                --rotate: 0deg;
+                --translate-x: 0%;
+                --translate-y: 0%;
+            };
+            & { @include ps.LQRendering(); };
         }
 
         //
@@ -64,6 +69,17 @@
         //
         body, html, canvas, img, #markdown, #viewport {
             content-visibility: auto;
+        }
+
+        //
+        [data-hidden] {
+            content-visibility: auto;
+        }
+
+        //
+        [data-hidden] #markdown {
+            display: none !important;
+            content-visibility: hidden !important;
         }
 
         //
@@ -709,16 +725,16 @@
             display: contents !important;
             visibility: visible;
         }
+    };
+
+    //
+    @page {
+        size: A4;
+        margin: 10mm 16mm 10mm 16mm;
 
         //
-        @page {
-            size: A4;
-            margin: 10mm 16mm 10mm 16mm;
-
-            //
-            @bottom-center {
-                content: counter(page);
-            }
+        @bottom-center {
+            content: counter(page);
         }
     };
 
