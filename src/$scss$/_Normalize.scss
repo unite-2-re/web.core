@@ -518,8 +518,7 @@
         };
 
         //
-        p { font-family: 10pt; }
-        p { white-space: pre-line; };
+        p { text-indent: 1em; font-family: 10pt; white-space: pre-line; };
 
         //
         strong {
@@ -536,22 +535,25 @@
 
         //
         :where(ol, ul) {
+            text-indent: 1em;
             list-style-position: inside;
             margin: 0px;
             padding: 0px;
             margin-inline-start: 0.5em;
+            padding-inline-start: 0.5em;
         }
 
         //
         :where(ol, ul) :where(ol, ul) {
-            padding-inline-start: 1em;
+            text-indent: 1em;
             margin: 0px;
             margin-block: 0.5rem;
+            margin-inline-start: 1em;
         }
 
         //
-        ol, ul, li {
-            text-indent: 1em;
+        :where(li) {
+            text-indent: 0em;
         }
 
         //
