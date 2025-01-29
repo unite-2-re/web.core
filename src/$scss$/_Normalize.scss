@@ -10,14 +10,6 @@
     @media screen {
 
         //
-        :where(div, button, span, svg, video, canvas, img, input, ui-icon, :not(:defined)) {
-            transform: translateZ(0);
-            backdrop-filter: none;
-            box-shadow: none;
-            filter: none;
-        }
-
-        //
         :where(html, body) {
             //
             & {
@@ -261,11 +253,6 @@
             }
 
             //
-            :where(ui-icon, svg) {
-                @include ps.disable-transform();
-            }
-
-            //
             :where(canvas, img, picture, video) {
                 user-select: none;
                 pointer-events: none;
@@ -294,30 +281,13 @@
                 & {
                     inline-size: max-content;
                     block-size: 100%;
-                    aspect-ratio: 1 / 1;
-
-                    //
-                    container-type: normal;
-                    contain: none;
-
-                    //
-                    transform: none;
-                    translate: 0px 0px;
-
-                    //
-                    object-fit: contain;
-                    object-position: center center;
-                    place-items: center;
-                    place-content: center;
-
-                    //
-                    filter: none;
-                    backdrop-filter: none;
+                    transform: translateZ(0px);
 
                     //
                     stroke: var(--current-glyph-color, currentColor);
                 }
 
+                //
                 & {
                     interactivity: inert;
                     pointer-events: none;
