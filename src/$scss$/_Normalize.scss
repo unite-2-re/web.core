@@ -364,38 +364,6 @@
 
             // relative by default
             :where(label) { position: relative; }
-            :where(body) :where(div, label) {
-                display: inline flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                box-sizing: border-box;
-
-                //
-                container-type: normal;
-                contain: none;
-
-                //
-                place-items: center;
-                place-content: center;
-
-                //
-                min-inline-size: 0px;
-                min-block-size: 0px;
-                inline-size: max-content;
-                block-size: max-content;
-                max-inline-size: none;
-                max-block-size: none;
-
-                //
-                gap: 0px;
-                padding: 0px;
-                margin: 0px;
-
-                //
-                inset: var(--cs-inset-y, 0px) auto auto var(--cs-inset-x, 0px);
-            }
-
-            //
             :where(.space, flex-space) {
                 flex-grow: 1;
                 flex-shrink: 0;
@@ -685,31 +653,6 @@
         }
 
         //
-        li, ul, ol {
-            text-align: start;
-        }
-
-        //
-        blockquote {
-            border-inline-start: solid 0.25em #0004;
-        }
-
-        //
-        table {
-            border: solid 1px #0004;
-
-            thead, tfoot, tbody, th, td, tr {
-                border: solid 1px #0004;
-            }
-        }
-
-        //
-        hr {
-            border: none 0px transparent;
-            background-color: transparent;
-        }
-
-        //
         body {
             margin: 0px;
             padding: 0px;
@@ -719,6 +662,34 @@
         //
         *:not(:defined), style, script, link {
             display: none !important; visibility: collapse !important;
+        }
+
+        //
+        [data-print] {
+            //
+            li, ul, ol {
+                text-align: start;
+            }
+
+            //
+            blockquote {
+                border-inline-start: solid 0.25em #0004;
+            }
+
+            //
+            table {
+                border: solid 1px #0004;
+
+                thead, tfoot, tbody, th, td, tr {
+                    border: solid 1px #0004;
+                }
+            }
+
+            //
+            hr {
+                border: none 0px transparent;
+                background-color: transparent;
+            }
         }
 
         // if can be passed for print
