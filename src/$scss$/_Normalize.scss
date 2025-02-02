@@ -396,6 +396,11 @@
             pointer-events: none !important;
         }
 
+        //
+        [data-dragging] {
+            // strictly forbid backdrop filter
+            &, & * { backdrop-filter: none !important; };
+        }
     };
 
     // can be printed itself
