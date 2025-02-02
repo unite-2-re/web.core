@@ -400,6 +400,7 @@
         [data-dragging] {
             // strictly forbid backdrop filter
             &, & * { backdrop-filter: none !important; };
+            & * { pointer-events: none !important; };
         }
     };
 
