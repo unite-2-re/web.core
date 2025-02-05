@@ -1,6 +1,12 @@
 @use "./Profile" as ps;
 
 //
+@property --translate-x { initial-value: 0px; syntax: "<length-percentage>"; inherits: false; };
+@property --translate-y { initial-value: 0px; syntax: "<length-percentage>"; inherits: false; };
+@property --opacity { initial-value: 1; syntax: "<number>"; inherits: false; };
+@property --scale { initial-value: 1; syntax: "<number>"; inherits: false; };
+
+//
 @layer u2-normalize {
 
     //
@@ -34,54 +40,21 @@
         }
 
         //
-        ui-frame, ui-modal, .ui-grid-item
-        {
-            & {
-                isolation: isolate;
-                content-visibility: auto;
-                transform-origin: 50% 50%;
-                transform: 
-                    translate3d(
-                        round(nearest, var(--translate-x, 0%), calc(1px / var(--pixel-ratio, 1))), 
-                        round(nearest, var(--translate-y, 0%), calc(1px / var(--pixel-ratio, 1)))
-                        , 0) 
-                    scale3d(var(--scale, 1), var(--scale, 1), var(--scale, 1));
-                translate: 0% 0% 0%;
-                opacity: var(--opacity, 1);
-                rotate: 0deg;
-                scale: 1;
-
-                //
-                --opacity: 1;
-                --scale: 1;
-                --rotate: 0deg;
-                --translate-x: 0%;
-                --translate-y: 0%;
-            };
-
-            //
-            & { @include ps.LQRendering(); };
-        }
+        ui-frame, ui-modal, .ui-grid-item { @include ps.LQRendering(); };
 
         // if there is nothing, why there is needs content?
         *:not(img, canvas, ui-icon, video, picture, input, ui-calendar, ui-status, ui-statusbar, ui-navbar, ui-taskbar, ui-task, iframe):empty { content-visibility: hidden !important; }
 
-        //
+        // 
         [data-dragging], :where(ui-frame, ui-modal, .ui-grid-item):active {
             will-change: transform;
             @include ps.LQRendering();
         };
 
         //
-        ui-icon {
-            content-visibility: hidden;
-        }
+        ui-icon, body, html, canvas, img, #markdown, #viewport, [data-hidden], #markdown, #markdown * { content-visibility: auto; };
 
         //
-        body, html, canvas, img, #markdown, #viewport, [data-hidden], #markdown, #markdown * {
-            content-visibility: auto;
-        }
-
         #markdown * {
             contain-intrinsic-block-size: auto 1em;
         }
@@ -101,118 +74,12 @@
         }
 
         //
-        #markdown { isolation: isolate; touch-action: pan-y; }
-
-        //
-        :root, :where(html) {
-            translate: 0px 0px !important;
-            transform: none !important;
-            margin: 0px !important;
-            padding: 0px !important;
-            border: none 0px transparent !important;
-            outline: none 0px transparent !important;
-
-            //
-            background-color: transparent;
-            container-type: normal;
-            container-name: html root;
-            contain: none;
-            overflow: visible;
-            position: fixed;
-            inset: 0px;
-            inset-block-end: auto;
-
-            //
-            min-inline-size: 100dvi;
-            min-block-size: 100dvb;
-
-            //
-            inline-size: max-content;
-            block-size: max-content;
-
-            //
-            max-inline-size: none;
-            max-block-size: none;
-
-            //
-            place-content: start;
-            place-items: start;
-            place-self: start;
-
-            //
-            line-height: 0;
-            flex-direction: column;
-            display: flex;
-        }
-
-        //
-        :root, :host, :scope, :where(body) {
-            pointer-events: auto;
-
-            //
-            transition-behavior: allow-discrete;
-            interpolate-size: allow-keywords;
-            content-visibility: auto;
-
-            //
-            --keyboard-inset-bottom: calc(max(env(keyboard-inset-bottom, 0px), 0px) / max(var(--zoom, 1), 0.125));
-            --keyboard-inset-height: calc(max(env(keyboard-inset-height, 0px), 0px) / max(var(--zoom, 1), 0.125));
-        }
+        #markdown { isolation: isolate; touch-action: pan-y; };
 
         //
         :where(:root, body, html, button) {
             font-family: 'Open Sans', 'Gill Sans Nova', Ubuntu, 'DejaVu Sans', Candara, Segoe, "Segoe UI", Optima, source-sans-pro, sans-serif;
             //@include dFont.applyFont(0.9rem);
-        }
-
-        //
-        :where(body) {
-
-            //
-            & {
-                translate: 0px 0px !important;
-                transform: none !important;
-                margin: 0px !important;
-
-                //
-                font-size: 0.9rem;
-
-                //
-                overflow: visible;
-                position: relative;
-                pointer-events: auto;
-                inset: 0px;
-
-                //
-                display: inline flex;
-                place-content: start;
-                place-items: start;
-                place-self: start;
-
-                //
-                background-color: var(--theme-base-color, transparent);
-
-                // if needs viewport
-                container-name: body;
-                container-type: normal;
-                contain: none;
-
-                //
-                min-inline-size: 100dvi;
-                min-block-size: 100dvb;
-
-                //
-                inline-size: 100%;
-                block-size: 100%;
-            }
-
-            //
-            & > :where(*) {
-                display: grid;
-                place-self: safe center;
-                grid-column: 1 / 1 span;
-                grid-row: 1 / 1 span;
-            }
         }
 
         //
@@ -403,317 +270,4 @@
             & * { pointer-events: none !important; };
         }
     };
-
-    // can be printed itself
-    [data-print] {
-        *, *::before, *::after {
-            box-sizing: border-box;
-            white-space: normal;
-        }
-
-        & { isolation: isolate; }
-        &, * {
-            content-visibility: auto;
-        }
-
-        body {
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        img, picture, video, canvas, svg {
-            display: block;
-            max-width: 100%;
-        }
-
-        input, button, textarea, select {
-            font: inherit;
-        }
-
-        p, h1, h2, h3, h4, h5, h6 {
-            overflow-wrap: break-word;
-        }
-
-        p {
-            text-indent: 1em;
-            text-wrap: pretty;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            text-wrap: balance;
-        }
-
-        #root, #__next {
-            isolation: isolate;
-        }
-
-        p, ol, ul {
-            block-size: max-content;
-            display: block;
-        }
-
-        //
-        & {
-            white-space: normal;
-            text-align: justify;
-            font-family: "Times New Roman";
-            overflow: auto;
-            font-family: 10pt;
-        };
-
-        //
-        p { text-indent: 1em; font-family: 10pt; white-space: pre-line; };
-
-        //
-        strong {
-            display: inline;
-            white-space: normal;
-            font-weight: bold;
-        }
-
-        //
-        h1, h2, h3, h4, h5, h6 {
-            display: block;
-            flex-direction: row;
-        }
-
-        //
-        :where(ol, ul) {
-            text-indent: 1em;
-            list-style-position: inside;
-            margin: 0px;
-            padding: 0px;
-            margin-inline-start: 0.5em;
-            padding-inline-start: 0.5em;
-        }
-
-        //
-        :where(ol, ul) :where(ol, ul) {
-            text-indent: 1em;
-            margin: 0px;
-            margin-block: 0.5rem;
-            margin-inline-start: 1em;
-        }
-
-        //
-        :where(li) {
-            text-indent: 0em;
-        }
-
-        //
-        p {
-            margin-block: 0.5rem;
-        }
-
-        //
-        li {
-            padding: 0px;
-            white-space: normal;
-            list-style-position: inside;
-            margin-bottom: 0.25rem;
-            text-align: start;
-            
-            //
-            p {
-                display: inline;
-                list-style-position: inside;
-                white-space: normal;
-            }
-
-            //
-            &::marker {
-                display: inline;
-                white-space: nowrap;
-            }
-        }
-
-        //
-        table, li, p, blockquote, ol, ul { break-inside: avoid-page; };
-        h1, h2, h3, h4, h5, h6, blockquote { break-before: auto; break-inside: avoid-page; break-after: avoid-page; };
-
-        //
-        :not(h1, h2, h3, h4, h5, h6) + :where(ul, ol, li) { break-before: avoid-page; };
-
-        // avoid breaking page, except any another <p> element
-        p:has(strong) { break-after: avoid-page; break-before: avoid-page; };
-        p + :not(p) { break-before: avoid-page; };
-        p:has(+ :not(p, h1, h2, h3, h4, h5, h6)) { break-after: avoid-page; };
-
-        strong { break-inside: avoid-page; break-before: avoid-page; break-after: avoid-page; };
-
-        //
-        .pb, .np, .pagebreak, .newpage, .page-break, .new-page { border: none 0px transparent; background-color: transparent; page-break-after: always; break-after: page; };
-
-        //
-        h1, h2, h3, h4, h5, h6 {
-            border: none 0px transparent;
-            font-family: "Times New Roman", serif;
-            font-weight: bold;
-            margin: 1em 0;
-            text-align: start;
-        }
-
-        //
-        :where(ol, ul, li) + p {
-            break-before: avoid-page;
-        }
-
-        //
-        h1 {
-            text-align: center;
-        }
-
-        //
-        h1, h2 {
-            border-bottom: 1px solid #0004;
-            padding-bottom: 0.25em;
-            margin-bottom: 1em;
-            inline-size: 100%;
-        }
-
-        //
-        h2 { border-bottom: 1px solid #0003; }
-
-        //
-        :not(h1) + h2 {
-            break-before: page;
-            //border-bottom: 1px solid #0003;
-        }
-
-        //
-        /*h1 + h2 {
-            border-bottom: 0px none transparent;
-        }*/
-
-        //
-        h3, h4, h5, h6 {
-            inline-size: max-content;
-        }
-
-        //
-        h1 { font-size: 2em; };
-        h2 { font-size: 1.6em; };
-        h3 { font-size: 1.2em; border-bottom: 1px solid #0003; padding-block-end: 0.25em; margin-block-end: 1rem; };
-        h4 { font-size: 1.05em; };
-        h5 { font-size: 1em; };
-        h6 { font-size: 1em; };
-
-        //
-        hr {
-            display: block;
-            block-size: 1px;
-            background-color: #0004;
-            border-bottom: none 0px transparent;
-            margin: 0px 1em;
-        }
-
-        //
-        img {
-            color: transparent;
-            font-size: 0px;
-            line-height: 0;
-        }
-
-        //
-        img:not([src]), img[src=""], img.error {
-            display: none;
-            visibility: collapse;
-            content-visibility: hidden;
-        }
-
-        //
-        div.hide, span.hide {
-            display: none;;
-            visibility: collapse;
-            content: "\[...\]";
-            break-inside: avoid-page;
-            //display: inline;
-        }
-
-        blockquote {
-            border-inline-start: solid 0.25em oklch(from var(--rv-color, #000) l c h / 0.1);
-            padding-inline-start: 0.5em;
-            margin-inline: 0px;
-        }
-
-        table {
-            inline-size: 100%;
-            border-collapse: collapse;
-            border: solid 1px oklch(from var(--rv-color, #000) l c h / 0.1);
-
-            thead, tfoot, tbody, th, td, tr {
-                padding: 0.25em;
-                border: solid 1px oklch(from var(--rv-color, #000) l c h / 0.1);
-            }
-        }
-    }
-
-    //
-    @media print {
-
-        // any where not printable, not printable any children...
-        // and assume until any printable
-        @scope (:where(body, :host) :not([data-print])) to (:has(> [data-print])) {
-            :scope > :where(div, img, canvas, :not(:defined)):not([data-print]):not([data-print-pass]) 
-                { display: none !important; visibility: collapse !important; };
-        }
-
-        //
-        body {
-            margin: 0px;
-            padding: 0px;
-            overflow: auto;
-        }
-
-        //
-        *:not(:defined), style, script, link {
-            display: none !important; visibility: collapse !important;
-        }
-
-        //
-        [data-print] {
-            //
-            li, ul, ol {
-                text-align: start;
-            }
-
-            //
-            blockquote {
-                border-inline-start: solid 0.25em #0004;
-            }
-
-            //
-            table {
-                border: solid 1px #0004;
-
-                thead, tfoot, tbody, th, td, tr {
-                    border: solid 1px #0004;
-                }
-            }
-
-            //
-            hr {
-                border: none 0px transparent;
-                background-color: transparent;
-            }
-        }
-
-        // if can be passed for print
-        [data-print-pass] {
-            display: contents !important;
-            visibility: visible;
-        }
-    };
-
-    //
-    @page {
-        size: A4;
-        margin: 10mm 16mm 10mm 16mm;
-
-        //
-        @bottom-center {
-            content: counter(page);
-        }
-    };
-
 };
