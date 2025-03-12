@@ -1,6 +1,3 @@
-//
-export * from "./$ts$/TaskManager";
-
 // @ts-ignore
 import styles from "./$scss$/_Module.scss?inline&compress";
 
