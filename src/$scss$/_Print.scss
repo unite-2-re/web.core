@@ -1,6 +1,6 @@
 //
 @layer u2-print {
-    
+
     // can be printed itself
     [data-print] {
         *, *::before, *::after {
@@ -109,7 +109,7 @@
             list-style-position: inside;
             margin-bottom: 0.25rem;
             text-align: start;
-            
+
             //
             p {
                 display: inline;
@@ -251,7 +251,7 @@
         // any where not printable, not printable any children...
         // and assume until any printable
         @scope (:where(body, :host) :not([data-print])) to (:has(> [data-print])) {
-            :scope > :where(div, img, canvas, :not(:defined)):not([data-print]):not([data-print-pass]) 
+            :scope > :where(div, img, canvas, :not(:defined)):not([data-print]):not([data-print-pass])
                 { display: none !important; visibility: collapse !important; };
         }
 

@@ -43,9 +43,9 @@
         ui-frame, ui-modal, .ui-grid-item { @include ps.LQRendering(); };
 
         // if there is nothing, why there is needs content?
-        *:not(img, canvas, ui-icon, video, picture, input, ui-calendar, ui-status, ui-statusbar, ui-navbar, ui-taskbar, ui-task, iframe):empty { content-visibility: hidden !important; }
+        *:not(img, canvas, ui-icon, video, picture, input, ui-calendar, ui-status, ui-statusbar, ui-navbar, ui-taskbar, ui-task, iframe):empty { content-visibility: hidden; }
 
-        // 
+        //
         [data-dragging], :where(ui-frame, ui-modal, .ui-grid-item):active {
             will-change: transform;
             @include ps.LQRendering();
