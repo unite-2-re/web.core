@@ -1,33 +1,20 @@
 @use "./Profile" as ps;
 
 //
-@property --translate-x { initial-value: 0px; syntax: "<length-percentage>"; inherits: false; };
-@property --translate-y { initial-value: 0px; syntax: "<length-percentage>"; inherits: false; };
-@property --opacity { initial-value: 1; syntax: "<number>"; inherits: false; };
-@property --scale { initial-value: 1; syntax: "<number>"; inherits: false; };
-
-//
 @layer u2-normalize {
 
     //
     @layer ux-agate;
-
-    //
     @media screen {
 
         //
         :where(html, body) {
-            //
-            & {
-                padding: 0px;
-                margin: 0px;
-                inset: 0px;
-                border: none 0px transparent;
-                background-color: transparent;
-            }
-
-            //
-            & { @include ps.HQRendering(); };
+            padding: 0px;
+            margin: 0px;
+            inset: 0px;
+            border: none 0px transparent;
+            background-color: transparent;
+            @include ps.HQRendering();
         }
 
         //
@@ -35,51 +22,55 @@
             transition-behavior: allow-discrete;
             interpolate-size: allow-keywords;
             box-sizing: border-box;
+            background-color: transparent;
             background-image: none;
             mask-image: none;
         }
 
-        //
-        ui-frame, ui-modal, .ui-grid-item { @include ps.LQRendering(); };
-
         // if there is nothing, why there is needs content?
-        *:not(img, canvas, ui-icon, video, picture, input, ui-calendar, ui-status, ui-statusbar, ui-navbar, ui-taskbar, ui-task, iframe):empty { content-visibility: hidden; }
+        ui-icon, body, html, canvas, img, #markdown, #viewport,
+        *:not(img, canvas, ui-icon, video, picture, input, ui-calendar, ui-status, ui-statusbar, ui-navbar, ui-taskbar, ui-task, iframe):empty { content-visibility: auto; }
 
         //
-        [data-dragging], :where(ui-frame, ui-modal, .ui-grid-item):active {
+        :where(ui-frame, ui-modal, .ui-grid-item):active,
+        :where(ui-icon, label, form),
+        [data-dragging], [data-hidden] {
             will-change: transform;
+            transform: translateZ(0px);
             @include ps.LQRendering();
         };
 
         //
-        ui-icon, body, html, canvas, img, #markdown, #viewport, [data-hidden], #markdown, #markdown * { content-visibility: auto; };
+        :where(body, button, html, :root) { font-family: 'Open Sans', 'Gill Sans Nova', Ubuntu, 'DejaVu Sans', Candara, Segoe, "Segoe UI", Optima, source-sans-pro, sans-serif; }
+        :where(head, script, link, style, meta) { display: none !important; user-select: none !important; pointer-events: none !important; }
+
+        // optimize effects
+        [data-hidden] { content-visibility: hidden; filter: none !important; backdrop-filter: none !important; };
+        [data-dragging] * { backdrop-filter: none !important; user-select: none !important; pointer-events: none !important; };
+        [data-dragging], [data-hidden] { backdrop-filter: none !important; user-select: none !important; };
+        //:has([data-dragging]) * { user-select: none !important; };
+        //content-visibility: auto;
 
         //
-        #markdown * {
-            contain-intrinsic-block-size: auto 1em;
+        :where([inert], *[inert]) {
+            pointer-events: none !important;
+            user-select: none !important;
+            touch-action: none !important;
         }
 
         //
-        [data-hidden] #markdown {
-            display: none !important;
-            content-visibility: hidden !important;
-        }
-
-        //
-        [data-dragging] #markdown {
-            content-visibility: hidden !important;
-            :where(*) {
-                content-visibility: hidden !important;
+        @media (prefers-reduced-motion: reduce) {
+            :where(*),
+            ::after,
+            ::before {
+                animation-delay: -1ms !important;
+                animation-duration: 1ms !important;
+                animation-iteration-count: 1 !important;
+                background-attachment: initial !important;
+                scroll-behavior: auto !important;
+                transition-delay: 0s !important;
+                transition-duration: 0s !important;
             }
-        }
-
-        //
-        #markdown { isolation: isolate; touch-action: pan-y; };
-
-        //
-        :where(:root, body, html, button) {
-            font-family: 'Open Sans', 'Gill Sans Nova', Ubuntu, 'DejaVu Sans', Candara, Segoe, "Segoe UI", Optima, source-sans-pro, sans-serif;
-            //@include dFont.applyFont(0.9rem);
         }
 
         //
@@ -120,79 +111,16 @@
             }
 
             //
-            :where(canvas, img, picture, video) {
+            :where(picture) { display: contents; }
+            :where(picture, canvas, img, video) {
                 user-select: none;
-                pointer-events: none;
                 overflow: hidden;
+                //pointer-events: none;
             }
 
             //
-            :where(picture) {
-                display: contents;
-            }
-
-            //
-            :dir(rtl) :where(*), :where(*):dir(rtl) {
-                direction: rtl;
-            }
-
-            //
-            :dir(ltr) :where(*), :where(*):dir(ltr) {
-                direction: ltr;
-            }
-
-            //
-            :where(.lucide, svg) {
-
-                //
-                & {
-                    inline-size: max-content;
-                    block-size: 100%;
-                    transform: translateZ(0px);
-
-                    //
-                    stroke: var(--current-glyph-color, currentColor);
-                }
-
-                //
-                & {
-                    interactivity: inert;
-                    pointer-events: none;
-                    user-select: none;
-                    touch-action: none;
-                }
-
-                //
-                //& { @include ps.HQRendering(); };
-                & { @include ps.LQRendering(); };
-            }
-
-            //
-            :where(ui-icon, label, form) {
-                @include ps.LQRendering();
-            }
-
-            //
-            :where([inert], *[inert]) {
-                pointer-events: none !important;
-                user-select: none !important;
-                touch-action: none !important;
-            }
-
-            //
-            @media (prefers-reduced-motion: reduce) {
-                :where(*),
-                ::after,
-                ::before {
-                    animation-delay: -1ms !important;
-                    animation-duration: 1ms !important;
-                    animation-iteration-count: 1 !important;
-                    background-attachment: initial !important;
-                    scroll-behavior: auto !important;
-                    transition-delay: 0s !important;
-                    transition-duration: 0s !important;
-                }
-            }
+            :dir(rtl) :where(*), :where(*):dir(rtl) { direction: rtl; }
+            :dir(ltr) :where(*), :where(*):dir(ltr) { direction: ltr; }
 
             //
             :where(button) {
@@ -209,8 +137,8 @@
                 pointer-events: auto;
 
                 //
-                padding: 0px;
                 margin: 0px;
+                padding: 0px;
 
                 //
                 border: none 0px transparent;
@@ -244,30 +172,10 @@
             }
 
             // weird idea...
-            label > input:where([type="radio"], [type="checkbox"]) {
-                display: none;
-                pointer-events: none;
-            }
+            label > input:where([type="radio"], [type="checkbox"]) { display: none; pointer-events: none; }
 
             // able to select inputs when edit
-            :where(input[type="text"], input[type="number"]) {
-                user-select: auto;
-            }
-
-        }
-
-        //
-        :where(head, script, style, link, meta) {
-            display: none !important;
-            user-select: none !important;
-            pointer-events: none !important;
-        }
-
-        //
-        [data-dragging] {
-            // strictly forbid backdrop filter
-            &, & * { backdrop-filter: none !important; };
-            & * { pointer-events: none !important; };
+            :where(input[type="text"], input[type="number"]) { user-select: auto; }
         }
     };
 };
